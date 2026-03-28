@@ -35,7 +35,7 @@
 
           <!-- MODE OF REFERENCE -->
           <div class="section-box">
-            <div class="section-title">
+            <div class="section-title-Mode">
               <span>MODE OF REFERENCE</span>(Please put a check mark where applicable)
             </div>
 
@@ -218,6 +218,7 @@
                   <input
                     type="text"
                     name="highestEducational"
+                    placeholder="College / High schooll / etc..."
                     style="width: 21%"
                     required
                   />
@@ -499,9 +500,11 @@
               <!-- EDUCATION -->
               <div class="section-title">EDUCATIONAL QUALIFICATIONS (Check the appropreate Box below)</div>
 
-              <div class="sub-section">
+
+              <div class="left-space">
+                <div class="sub-section">
                 <strong>For Registered Nurses</strong>
-                <div class="checkbox-group">
+                <div class="checkbox-grid">
                   <label
                     ><input
                       type="checkbox"
@@ -556,7 +559,7 @@
 
               <div class="sub-section">
                 <strong>For Physical Therapists</strong>
-                <div class="checkbox-group">
+                <div class="checkbox-grid">
                   <label
                     ><input
                       type="checkbox"
@@ -575,128 +578,120 @@
                   >
                 </div>
               </div>
+              </div>
+              
 
               <!-- JOB SPECIALTIES -->
               <div class="section-title">JOB SPECIALTIES / POSITIONS HELD (Check the appropreate Box below)</div>
-              <div class="checkbox-grid">
-                <label
-                  ><input type="checkbox" name="job_specialty[]" value="er" />
-                  Emergency Room Nurse</label
-                >
-                <label
-                  ><input type="checkbox" name="job_specialty[]" value="icu" />
-                  ICU Nurse</label
-                >
-                <label
-                  ><input
-                    type="checkbox"
-                    name="job_specialty[]"
-                    value="theater"
-                  />
-                  Theater / Operation Nurse</label
-                >
-                <label
-                  ><input
-                    type="checkbox"
-                    name="job_specialty[]"
-                    value="delivery"
-                  />
-                  Delivery Room Nurse</label
-                >
-                <label
-                  ><input
-                    type="checkbox"
-                    name="job_specialty[]"
-                    value="ortho"
-                  />
-                  Orthopedic Nurse</label
-                >
+              <div class="checkbox-grid-1">
 
-                <label
-                  ><input
-                    type="checkbox"
-                    name="job_specialty[]"
-                    value="med_surg"
-                  />
-                  Medical Surgical Nurse</label
-                >
-                <label
-                  ><input
-                    type="checkbox"
-                    name="job_specialty[]"
-                    value="telemetry"
-                  />
-                  Telemetry Nurse</label
-                >
-                <label
-                  ><input type="checkbox" name="job_specialty[]" value="pcu" />
-                  PCU/CVPCU Nurse</label
-                >
-                <label
-                  ><input
-                    type="checkbox"
-                    name="job_specialty[]"
-                    value="rehab"
-                  />
-                  Rehabilitation Nurse</label
-                >
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="er">
+    Emergency Room Nurse
+  </label>
 
-                <label>
-                  <input
-                    type="checkbox"
-                    name="job_specialty[]"
-                    value="others"
-                  />
-                  Others:
-                  <input type="text" name="job_specialty_other" />
-                </label>
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="med_surg">
+    Medical Surgical Nurse
+  </label>
 
-                <label
-                  ><input
-                    type="checkbox"
-                    name="job_specialty[]"
-                    value="general"
-                  />
-                  General Nurse</label
-                >
-                <label
-                  ><input type="checkbox" name="job_specialty[]" value="pt" />
-                  Physical Therapist</label
-                >
-                <label
-                  ><input type="checkbox" name="job_specialty[]" value="ot" />
-                  Occupational Therapist</label
-                >
-              </div>
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="general">
+    General Nurse
+  </label>
+
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="icu">
+    ICU Nurse
+  </label>
+
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="telemetry">
+    Telemetry Nurse
+  </label>
+
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="pt">
+    Physical Therapist
+  </label>
+
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="theater">
+    Theater / Operation Nurse
+  </label>
+
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="pcu">
+    PCU/CVPCU Nurse
+  </label>
+
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="ot">
+    Occupational Therapist
+  </label>
+
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="delivery">
+    Delivery Room Nurse
+  </label>
+
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="rehab">
+    Rehabilitation Nurse
+  </label>
+
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="ortho">
+    Orthopedic Nurse
+  </label>
+
+  <label>
+    <input type="checkbox" name="job_specialty[]" value="others">
+    Others — please specify:
+    <input type="text" name="job_specialty_other">
+  </label>
+
+</div>
+
+
+              
 
               <!-- PORTFOLIO -->
               <div class="section-title">YOUR PORTFOLIO LEVEL (Check the appropreate Box below)</div>
-              <div class="checkbox-group">
-                <label
-                  ><input type="checkbox" name="portfolio[]" value="staff" />
-                  Staff Nurse</label
-                >
-                <label
-                  ><input type="checkbox" name="portfolio[]" value="senior" />
-                  Senior Nurse</label
-                >
-                <label
-                  ><input type="checkbox" name="portfolio[]" value="head" />
-                  Head Nurse</label
-                >
-                <label
-                  ><input type="checkbox" name="portfolio[]" value="charge" />
-                  Charge Nurse</label
-                >
-                <label
-                  ><input type="checkbox" name="portfolio[]" value="director" />
-                  Nursing Director</label
-                >
-                <label
-                  ><input type="checkbox" name="portfolio[]" value="sister" />
-                  Nursing Sister</label
-                >
-              </div>
+              <div class="checkbox-grid-2">
+
+  <label>
+    <input type="checkbox" name="portfolio[]" value="staff">
+    Staff Nurse
+  </label>
+
+  <label>
+    <input type="checkbox" name="portfolio[]" value="charge">
+    Charge Nurse (Nurse Manager during shifts)
+  </label>
+
+  <label>
+    <input type="checkbox" name="portfolio[]" value="senior">
+    Senior Nurse
+  </label>
+
+  <label>
+    <input type="checkbox" name="portfolio[]" value="director">
+    Nursing Director
+  </label>
+
+  <label>
+    <input type="checkbox" name="portfolio[]" value="head">
+    Head Nurse
+  </label>
+
+  <label>
+    <input type="checkbox" name="portfolio[]" value="sister">
+    Nursing Sister
+  </label>
+
+</div>
+
 
               <!-- LICENSE REQUIREMENTS -->
               <div class="section-title">LICENSE REQUIREMENTS</div>
@@ -1172,6 +1167,6 @@
 
     <!--HIDDEN ELEMENTS-->
 
-    <script src="main.js"></script>
+    <script src="assets/js/main.js"></script>
   </body>
 </html>
