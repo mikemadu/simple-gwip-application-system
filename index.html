@@ -79,89 +79,99 @@
             <div class="personal-left">
               <div class="form-group">
                 <label>WHAT TO APPLY FOR:<span class="asterisk">*</span></label> 
-                <input type="text" class="line-input" name="applyFor" required />
+                <input type="text" class="line-input" name="applyFor" />
               </div>
 
               <div class="form-group inline-fields">
                 <label>Last Name (Surname):<span
                 
                  class="asterisk">*</span></label>
-                <input type="text" name="lastName" style="width: 75%" required />
+                <input type="text" name="lastName" style="width: 75%" />
 
                 <label>First Name:<span
                 
                  class="asterisk">*</span></label>
-                <input type="text" name="firstName" style="width: 40%" required />
+                <input type="text" name="firstName" style="width: 40%" />
 
                 <label>Middle Name:</label>
-                <input type="text" name="middleName" style="width: 30%" required />
+                <input type="text" name="middleName" style="width: 20%" />
               </div>
 
               <div class="form-group">
                 <label>Main Address (City Address):<span
                 
                  class="asterisk">*</span></label>
-                <input type="text" name="address" class="line-input" required />
+                <input type="text" name="address" class="line-input" />
               </div>
 
               <div class="form-group">
                 <label>Alternate Address (Provincial):</label>
-                <input type="text" name="alternateAddress" class="line-input" required />
+                <input type="text" name="alternateAddress" class="line-input" />
               </div>
 
               <div class="form-group inline-fields">
                 <label>Email:<span
                 
                  class="asterisk">*</span></label>
-                <input type="email" name="email" style="width: 40%" required />
+                <input type="email" name="email" style="width: 40%" />
 
                 <label>Contact Number:<span class="asterisk">*</span></label>
-                <input type="tel" name="phone" style="width: 30%" pattern="[0-9]{10,15}" required />
+                <input type="tel" name="phone" style="width: 30%" pattern="[0-9]{10,15}" />
               </div>
 
+              
+               <!--Please make this a dropdown with the following choices: Single, Married, Widowed,Divorced, Separated, Co-Habitation -->
               <div class="form-group inline-fields">
                 <label>Civil Status:<span class="asterisk">*</span></label>
-                <!--Please make this a dropdown with the following choices: Single, Married, Widowed,Divorced, Separated, Co-Habitation -->
-                <input type="text" style="width: 30%" placeholder="Single / Married / Widowed" name="civilStatus"
-                  required />
+
+                <select name="civilStatus" style="width: 30%" class="line-input">
+                  <option value="">-- Select Status --</option>
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Widowed">Widowed</option>
+                  <option value="Divorced">Divorced</option>
+                  <option value="Separated">Separated</option>
+                  <option value="Co-Habitation">Co-Habitation</option>
+                </select>
               </div>
+
 
               <div class="form-group inline-fields">
                 <label>Height:</label>
-                <input type="text" name="height" style="width: 15%" required />
+                <input type="text" name="height" style="width: 15%" />
 
                 <label>Weight:</label>
-                <input type="text" name="weight" style="width: 15%" required />
+                <input type="text" name="weight" style="width: 15%" />
 
                 <label>Birth Date:</label><span class="asterisk">*</span></label>
-                <input type="date" name="birthDate" style="width: 30%" required />
+                <input type="date" name="birthDate" style="width: 30%" />
               </div>
 
               <div class="form-group inline-fields">
                 <label>Religion:</label>
-                <input type="text" name="religion" style="width: 25%" required />
+                <input type="text" name="religion" style="width: 25%" />
 
                 <label>Highest Educational Attainment:</label>
                 <input type="text" name="highestEducational" placeholder="College / High schooll / etc..."
-                  style="width: 21%" required />
+                  style="width: 21%" />
               </div>
 
               <div class="form-group inline-fields">
                 <label>Course Taken:</label>
-                <input type="text" name="courseTaken" style="width: 11%" required />
+                <input type="text" name="courseTaken" style="width: 11%" />
 
                 <label>Gender:</label>
                 <!--Please make this a dropdown with the following choices: Male, Female-->
-                <input type="text" name="gender" style="width: 10%" required />
+                <input type="text" name="gender" style="width: 10%" />
 
                 <label>Experience:</label>
                 <input type="text" name="experience" style="width: 30%"
-                  placeholder="Ex-Saudi / Ex-Taiwan / Ex-Hong Kong etc" required />
+                  placeholder="Ex-Saudi / Ex-Taiwan / Ex-Hong Kong etc" />
               </div>
 
               <div class="form-group">
                 <label>Hobbies and Other Skills:</label>
-                <input type="text" name="hobbies" class="line-input" style="width: 70%" required />
+                <input type="text" name="hobbies" class="line-input" style="width: 70%" />
               </div>
             </div>
 
