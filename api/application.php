@@ -1,8 +1,7 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
+// ini_set('display_errors', 1);
+// error_reporting(E_ALL);
 
 
 
@@ -41,12 +40,22 @@ if (isset($_POST)) { //check if form has been submitted
 
     $result = $conn->query($insertQuery);//run the query on the database
      // Close connection
-    $conn->close();
+    $response = array();//prepare a response
     if ($result) {
-        echo "success";
-    }else{
-        echo "error";
+    $last_id = $conn->insert_id; //get the id of the last inserted record
+    $response['result'] = $last_id; //return the id to the UI
+    $response['success'] = true;
+    $response['message'] = "Application submitted successfully";
+    } else {
+    $response['result'] = 0; //no record was inserted
+    $response['success'] = false;
+    $response['message'] = "Application submission failed : " . $conn->error;
     }
+    // Close connection
+    $conn->close();
+
+    echo json_encode($response); //return the response object
+    die;
 
    
 }
