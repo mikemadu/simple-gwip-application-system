@@ -38,7 +38,7 @@
                 >PLEASE PRINT IN BLOCK LETTERS</strong
               >)
             </div>
-            <div>DATE: <span class="date"></span></div>
+            <div>DATE: <span class="date" id="file-date"></span></div>
           </div>
 
           <!-- MODE OF REFERENCE -->
@@ -248,8 +248,11 @@
 
               <!-- RIGHT SIDE (PICTURE BOX) -->
               <div class="personal-right">
-                Picture <br />
-                <input type="file" name="photo" accept=".jpg, .jpeg, .png" />
+                <div style="height: 200px; width: 200px; border: 1px solid blue; margin: 0 auto; overflow: hidden;">
+                  <div><label style="color: red; font-weight: bold; cursor: pointer; padding: 5px;" for="pick-photo">
+                  select 2x2 Photo <input id='pick-photo' type="file" name="photo" accept=".jpg, .jpeg, .png" /></label>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1198,16 +1201,37 @@
           </div>
 
           <br />
-          <button type="submit" id="submitBtn">Submit Application</button>
+          <div style="text-align: center">
+            <button type="submit" style="cursor: pointer" id="submitBtn">Submit Application</button>
+            <div id="responseMessage"></div>
+          </div>
+
         </form>
 
-        <div id="responseMessage"></div>
+
       </div>
     </div>
-    <button><a href="index.php">Home</a></button>
 
-    <!--HIDDEN ELEMENTS-->
+    <div style="text-align: center; padding: 5px 10px 20px 10px;">
+        <button style="height: 27px; color: white; padding: 0px 10px; background-color: #458f8f;">
+          <a style="text-decoration: none; color: white;" href="index.php">Back to Home Page</a></button>
+    </div>
+  
 
+     <dialog id="success-dialog">
+      <p id="success-message"></p>
+    </dialog>
+
+
+
+    <script src="assets/js/jquery.js"></script>
     <script src="assets/js/main.js"></script>
+
+
+   
+
+
   </body>
+
 </html>
+
