@@ -27,19 +27,14 @@
 
         <!-- ** Michael please remove all 'Required' attributes on all form fields except the ones with asterisks that I have added -->
 
-        <!-- SUB HEADER -->
-        <div class="sub-header">
-          <div>
-            Please fill out the following with black ball pen (<strong>PLEASE PRINT IN BLOCK LETTERS</strong>)
-          </div>
-          <div>DATE: <span class="date" id='file-date'></span></div>
-        </div>
-
-        <!-- MODE OF REFERENCE -->
-        <div class="section-box">
-          <div class="section-title-Mode">
-            <span>MODE OF REFERENCE</span>(Please put a check mark where
-            applicable)
+          <!-- SUB HEADER -->
+          <div class="sub-header">
+            <div>
+              Please fill out the following with black ball pen (<strong
+                >PLEASE PRINT IN BLOCK LETTERS</strong
+              >)
+            </div>
+            <div>DATE: <span class="date" id="file-date"></span></div>
           </div>
 
           <div class="checkbox-group">
@@ -439,26 +434,14 @@
                 Occupational Therapist
               </label>
 
-              <label>
-                <input type="checkbox" name="chk_job_specialty_delivery" value="1" />
-                Delivery Room Nurse
-              </label>
-
-              <label>
-                <input type="checkbox" name="chk_job_specialty_rehab" value="1" />
-                Rehabilitation Nurse
-              </label>
-
-              <label>
-                <input type="checkbox" name="chk_job_specialty_ortho" value="1" />
-                Orthopedic Nurse
-              </label>
-
-              <label>
-                <input type="checkbox" name="chk_job_specialty_others" value="1" />
-                Others — please specify:
-                <input type="text" name="job_specialty_other" />
-              </label>
+              <!-- RIGHT SIDE (PICTURE BOX) -->
+              <div class="personal-right">
+                <div style="height: 200px; width: 200px; border: 1px solid blue; margin: 0 auto; overflow: hidden;">
+                  <div><label style="color: red; font-weight: bold; cursor: pointer; padding: 5px;" for="pick-photo">
+                  select 2x2 Photo <input id='pick-photo' type="file" name="photo" accept=".jpg, .jpeg, .png" /></label>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- PORTFOLIO -->
@@ -955,23 +938,38 @@
 
       </form>
 
+          <br />
+          <div style="text-align: center">
+            <button type="submit" style="cursor: pointer" id="submitBtn">Submit Application</button>
+            <div id="responseMessage"></div>
+          </div>
 
+        </form>
+
+
+      </div>
     </div>
-  </div>
 
-  <div style='text-align: center;padding: 5px 10px 20px 10px;'>
-    <button style='height: 27px; color: white; padding: 0px 10px; background-color: #458f8f;'>
-      <a style='text-decoration: none;color:white;' href="index.php">Back to Home Page</a>
-    </button>
-  </div>
+    <div style="text-align: center; padding: 5px 10px 20px 10px;">
+        <button style="height: 27px; color: white; padding: 0px 10px; background-color: #458f8f;">
+          <a style="text-decoration: none; color: white;" href="index.php">Back to Home Page</a></button>
+    </div>
+  
+
+     <dialog id="success-dialog">
+      <p id="success-message"></p>
+    </dialog>
 
 
-  <!--HIDDEN ELEMENTS-->
-  <script src="assets/js/jquery.js"></script>
-  <script src="assets/js/main.js"></script>
-</body>
+
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/main.js"></script>
+
+
+   
+
+
+  </body>
 
 </html>
-<dialog id="success-dialog">
-  <p id='success-message'></p>
-</dialog>
+

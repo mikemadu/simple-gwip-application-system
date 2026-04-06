@@ -1,27 +1,25 @@
 <?php
 
-// ini_set('display_errors', 1);
-// error_reporting(E_ALL);
-
 
 //ini_set('display_errors', '1');  //REMOVE the comment during development
 require_once "db_config.php"; //database configuration 
 
 if (isset($_POST)) { //check if form has been submitted
-    $formData = $_POST; // if so, store all key/value pairs in a variable
-    $formData = array_filter($_POST); // if so, store all key/value pairs in a variable after removing any empty fields
+   $formData = array_filter($_POST); // if so, store all key/value pairs in a variable after removing any empty fields
+   // $formData = $_POST; // if so, store all key/value pairs in a variable
     $keys = array_keys($formData); //get all the keys(field names) into an array
    
+
     // Connect to MySQL
     $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName); // Using mysqli here
-    // echo print_r($conn);
-    // die;
+   
     
     // Check connection
     if ($conn->connect_error) {
         echo "Connection failed: " . $conn->connect_error;
         die; //There is no point in continuing if connection fails. QUIT !
     }
+    
     $all_fieldnames =  implode(",", $keys); //from the submitted form, create a comma separated string of field names
     $all_values = ''; // all our incoming values will enter here
     foreach ($keys as $key) { //get all corresponding values to the fieldnames. Use a loop
