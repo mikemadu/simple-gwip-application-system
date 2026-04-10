@@ -1,7 +1,7 @@
 
 window.addEventListener("load", async function () {
     // Don't show our read-only form on this page that is used to display the details of one application
-    document.getElementById('viewable-application').style.display = 'none'; 
+    document.getElementById('printable-application').style.display = 'none';
 
     //Make sure our dashboard view is shown
     document.querySelector(".dashboard-wrapper").style.display = "block";
@@ -35,11 +35,12 @@ async function getApplicationList() {
         }
 
         tbody += '<tr class="apply-table-row" onclick="getOneApplication(' + item.id + ')" >' +
+            '<td>' + (+data.result.indexOf(item) + 1) + '</td>' +
             '<td>' + photoObj + '</td>' +
             '<td></td>' +
-            '<td>' + item.lastName + ', ' + item.firstName + '</td>' +
+            '<td style="text-align: left;">' + item.lastName.toUpperCase() + ', ' + item.firstName + '</td>' +
             '<td>' + computeAgeFromDate(item.birthdate) + '</td>' + //will compute the age from the date of birth
-            '<td>' + item.applyFor + '</td>' +
+            '<td style="text-align: left;">' + item.applyFor + '</td>' +
             '<td><button class="delete-button" title="Delete Application" onclick="deleteApplication(' + item.id + ')">-- delete --</button></td>' +
             '</tr>';
     });
@@ -117,8 +118,8 @@ async function getOneApplication(applyId) {
             loadingDialog.close();
             // hide our current dashboard
             document.querySelector(".dashboard-wrapper").style.display = "none";
-            // Show the hidden form
-            document.getElementById("viewable-application").style.display = "block";
+            // Show the hidden application form
+            document.getElementById("printable-application").style.display = "block";
             populateForm(data.result);//populate the form with the returned data
             //scroll to the top of the page
             window.scrollTo(0, 0);
@@ -129,36 +130,78 @@ async function getOneApplication(applyId) {
     }
 }
 
+
+
+/**
+ * As we return the data from our server as JSON, we need to check if the data is defined or null
+ * @param {*} obj  object
+ * @returns empty string if object is not defined or null else it returns the object
+ */
+function validateDisplayedData(obj){
+    if (obj !== undefined && obj !== null) {
+        return obj;
+    } else {
+        return '';
+    }
+}
+
+
+function goBack(){
+    // Make the html of the application list dashboard visible
+    document.querySelector(".dashboard-wrapper").style.display = "block";
+    // Hide the one application with retrieved data
+    document.getElementById("printable-application").style.display = "none";  
+}
+
+printApplication = () => {
+    window.print();
+}
+
+/**
+ * Populate a form with the details of one application from a database
+ * @param {*} dataRow contains all data for one application
+ * @returns a boolean. True if no errors occur or False otherwise
+ */
+
 function populateForm(dataRow) {
+    let photoFolder = 'api/uploads/';
     //disable all inputs, selects and textareas
-    const formElements = document.querySelectorAll('#viewable-application input, #viewable-application select, #viewable-application textarea');
+    const formElements = document.querySelectorAll('#printable-application input, #printable-application select, #printable-application textarea, #printable-application checkbox, #printable-application radio');
 
     // Loop through each element and make read-only, disabled and apply some css properties
     formElements.forEach(element => {
         element.readOnly = true;
-        element.disabled = true;
+        //  element.disabled = true;
         //style the elements
         element.style.color = 'blue';
         element.style.fontWeight = 'bold';
         element.style.fontSize = '1rem';
     });
     try {
-          document.querySelector("input[name='firstName']").value = dataRow.firstName || '';
-    document.querySelector("input[name='lastName']").value = dataRow.lastName || '';
-    document.querySelector("input[name='birthdate']").value = dataRow.birthdate? dataRow.birthdate.substring(0, 10) : '';
-    document.querySelector("input[name='applyFor']").value = dataRow.applyFor? dataRow.applyFor : '';
-    document.querySelector("input[name='photo']").value = dataRow.photo? dataRow.photo : '';
-    document.querySelector("input[name='id']").value = dataRow.id? dataRow.id : '';
+        let photoObj = ''; //prepare for photo
+        if (dataRow.photo === null) {
+            photoObj = '-'; //No photo
+        } else {
+            photoObj = '<img src=' + photoFolder + dataRow.photo + ' style="height: 90%;margin:0 auto;"  />'; //display the photo
+        }
+        document.querySelector("input[name='applyFor']").value = validateDisplayedData(dataRow.applyFor).toUpperCase();
+        document.getElementById("two-by-two").innerHTML = photoObj; //display the photo by injecting into the page
+        document.querySelector("input[name='firstName']").value = validateDisplayedData(dataRow.firstName).toUpperCase();
+        document.querySelector("input[name='lastName']").value = validateDisplayedData(dataRow.lastName).toUpperCase();
+        document.querySelector("input[name='email']").value = validateDisplayedData(dataRow.email);
+
+        document.querySelector("input[name='chk_directhire']").checked = +validateDisplayedData(dataRow.chk_directhire); //checkbox
+        document.querySelector("input[name='chk_indirecthire']").checked = +validateDisplayedData(dataRow.chk_indirecthire); //checkbox
+        document.querySelector("input[name='chk_gwiphire']").checked = +validateDisplayedData(dataRow.chk_gwiphire); //checkbox
+
+        document.querySelector("input[name='birthDate']").value = validateDisplayedData(dataRow.birthDate).substring(0, 10);
+        document.querySelector("input[name='phone']").value = validateDisplayedData(dataRow.phone);
+        document.querySelector("select[name='civilStatus']").value = validateDisplayedData(dataRow.civilStatus); //select field
+        document.querySelector("select[name='gender']").value = validateDisplayedData(dataRow.gender); //select field
+        document.querySelector("input[name='address']").value = validateDisplayedData(dataRow.address);
 
     } catch (error) {
+        console.log('Error occured while populating form: ', error);
         return false;
-    }
-      
-
-        return true;
-
-}
-
-printApplication = () => {
-    window.print();
+    } return true;
 }
