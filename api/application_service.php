@@ -100,13 +100,10 @@ function login()
         $_SESSION['admin'] = $db_username;
         // Prepare a success response
         $res = ["success" => true, "message" => "Login successful"];
-
     } else {
-
         // If login fails, return an error message
         $res = ["success" => false, "message" => "Invalid username or password"];
     }
-
     // Close the prepared statement
     $stmt->close();
     // Close the database connection
@@ -121,7 +118,6 @@ function logout()
     session_start(); // ensure session is active
     // Destroy the session
     session_destroy();
-
     exit(json_encode([
         "success" => true,
         "message" => "Logged out successfully"

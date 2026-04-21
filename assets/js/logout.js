@@ -5,9 +5,9 @@ const btnLogout = document.getElementById("btnLogout");
 if (btnLogout) {
   // Add a click event listener to the logout button
   btnLogout.addEventListener("click", async function () {
+
     // Disable the button to prevent multiple clicks
     btnLogout.disabled = true;
-
     // Change the button text to indicate the logout process
     btnLogout.textContent = "Logging Out...";
 
@@ -32,7 +32,6 @@ if (btnLogout) {
 
       // Re-enable the button so the user can try again
       btnLogout.disabled = false;
-
       // Restore the original button text
       btnLogout.textContent = "Logout";
     }
