@@ -249,89 +249,248 @@ function populateForm(dataRow) {
         element.style.fontSize = '1rem';
     });
     try {
-        let photoObj = ''; //prepare for photo
-        if (dataRow.photo === null) {
-            photoObj = '-'; //No photo
-        } else {
-            photoObj = '<img src=' + photoFolder + dataRow.photo + ' style="width: 185px;margin:0 auto;"  />'; //display the photo
-        }
-        document.querySelector("input[name='applyFor']").value = validateDisplayedData(dataRow.applyFor).toUpperCase();
-        document.getElementById("two-by-two").innerHTML = photoObj; //display the photo by injecting into the page
-        document.querySelector("input[name='firstName']").value = validateDisplayedData(dataRow.firstName).toUpperCase();
-        document.querySelector("input[name='lastName']").value = validateDisplayedData(dataRow.lastName).toUpperCase();
-        document.querySelector("input[name='middleName']").value = validateDisplayedData(dataRow.middleName).toUpperCase();
-        document.querySelector("input[name='email']").value = validateDisplayedData(dataRow.email);
+      let photoObj = ""; //prepare for photo
+      if (dataRow.photo === null) {
+        photoObj = "-"; //No photo
+      } else {
+        photoObj =
+          "<img src=" +
+          photoFolder +
+          dataRow.photo +
+          ' style="width: 185px;margin:0 auto;"  />'; //display the photo
+      }
+      document.querySelector("input[name='applyFor']").value =
+        validateDisplayedData(dataRow.applyFor).toUpperCase();
+      document.getElementById("two-by-two").innerHTML = photoObj; //display the photo by injecting into the page
+      document.querySelector("input[name='firstName']").value =
+        validateDisplayedData(dataRow.firstName).toUpperCase();
+      document.querySelector("input[name='lastName']").value =
+        validateDisplayedData(dataRow.lastName).toUpperCase();
+      document.querySelector("input[name='middleName']").value =
+        validateDisplayedData(dataRow.middleName).toUpperCase();
+      document.querySelector("input[name='email']").value =
+        validateDisplayedData(dataRow.email);
 
-        document.querySelector("input[name='first_choice']").value = validateDisplayedData(dataRow.first_choice).toUpperCase();
-        document.querySelector("input[name='second_choice']").value = validateDisplayedData(dataRow.secondt_choice).toUpperCase();
-        document.querySelector("input[name='third_choice']").value = validateDisplayedData(dataRow.third_choice).toUpperCase();
+      document.querySelector("input[name='first_choice']").value =
+        validateDisplayedData(dataRow.first_choice).toUpperCase();
+      document.querySelector("input[name='second_choice']").value =
+        validateDisplayedData(dataRow.secondt_choice).toUpperCase();
+      document.querySelector("input[name='third_choice']").value =
+        validateDisplayedData(dataRow.third_choice).toUpperCase();
 
-        document.querySelector("input[name='chk_directhire']").checked = +validateDisplayedData(dataRow.chk_directhire); //checkbox
-        document.querySelector("input[name='chk_indirecthire']").checked = +validateDisplayedData(dataRow.chk_indirecthire); //checkbox
-        document.querySelector("input[name='chk_gwiphire']").checked = +validateDisplayedData(dataRow.chk_gwiphire); //checkbox
+      document.querySelector("input[name='chk_directhire']").checked =
+        +validateDisplayedData(dataRow.chk_directhire); //checkbox
+      document.querySelector("input[name='chk_indirecthire']").checked =
+        +validateDisplayedData(dataRow.chk_indirecthire); //checkbox
+      document.querySelector("input[name='chk_gwiphire']").checked =
+        +validateDisplayedData(dataRow.chk_gwiphire); //checkbox
 
-        document.querySelector("input[name='birthDate']").value = validateDisplayedData(dataRow.birthDate).substring(0, 10);
-        document.querySelector("input[name='phone']").value = validateDisplayedData(dataRow.phone);
-        document.querySelector("select[name='civilStatus']").value = validateDisplayedData(dataRow.civilStatus); //select field
-        document.querySelector("select[name='gender']").value = validateDisplayedData(dataRow.gender); //select field
-        document.querySelector("input[name='address']").value = validateDisplayedData(dataRow.address);
-        document.querySelector("input[name='alternateAddress']").value = validateDisplayedData(dataRow.alternateAddress);
+      document.querySelector("input[name='birthDate']").value =
+        validateDisplayedData(dataRow.birthDate).substring(0, 10);
+      document.querySelector("input[name='phone']").value =
+        validateDisplayedData(dataRow.phone);
+      document.querySelector("select[name='civilStatus']").value =
+        validateDisplayedData(dataRow.civilStatus); //select field
+      document.querySelector("select[name='gender']").value =
+        validateDisplayedData(dataRow.gender); //select field
+      document.querySelector("input[name='address']").value =
+        validateDisplayedData(dataRow.address);
+      document.querySelector("input[name='alternateAddress']").value =
+        validateDisplayedData(dataRow.alternateAddress);
 
-        document.querySelector("input[name='height']").value = validateDisplayedData(dataRow.height);
-        document.querySelector("input[name='weight']").value = validateDisplayedData(dataRow.weight);
-        document.querySelector("input[name='religion']").value = validateDisplayedData(dataRow.religion);
-        document.querySelector("input[name='highestEducational']").value = validateDisplayedData(dataRow.highestEducational);
-        document.querySelector("input[name='courseTaken']").value = validateDisplayedData(dataRow.courseTaken);
-        document.querySelector("input[name='experience']").value = validateDisplayedData(dataRow.experience);
-        document.querySelector("input[name='hobbies']").value = validateDisplayedData(dataRow.hobbies);
+      document.querySelector("input[name='height']").value =
+        validateDisplayedData(dataRow.height);
+      document.querySelector("input[name='weight']").value =
+        validateDisplayedData(dataRow.weight);
+      document.querySelector("input[name='religion']").value =
+        validateDisplayedData(dataRow.religion);
+      document.querySelector("input[name='highestEducational']").value =
+        validateDisplayedData(dataRow.highestEducational);
+      document.querySelector("input[name='courseTaken']").value =
+        validateDisplayedData(dataRow.courseTaken);
+      document.querySelector("input[name='experience']").value =
+        validateDisplayedData(dataRow.experience);
+      document.querySelector("input[name='hobbies']").value =
+        validateDisplayedData(dataRow.hobbies);
 
-        document.querySelector("input[name='university_name']").value = validateDisplayedData(dataRow.university_name);
-        document.querySelector("input[name='university_location']").value = validateDisplayedData(dataRow.university_location);
-        document.querySelector("input[name='university_year']").value = validateDisplayedData(dataRow.university_year);
-        document.querySelector("input[name='university_course']").value = validateDisplayedData(dataRow.university_course);
+      // ===============================
+      // UNIVERSITY
+      // ===============================
+      document.querySelector("input[name='university_name']").value =
+        validateDisplayedData(dataRow.university_name);
 
-        document.querySelector("input[name='college_name']").value = validateDisplayedData(dataRow.college_name);
-        document.querySelector("input[name='college_location']").value = validateDisplayedData(dataRow.college_location);
-        document.querySelector("input[name='college_year']").value = validateDisplayedData(dataRow.college_year);
-        document.querySelector("input[name='college_course']").value = validateDisplayedData(dataRow.college_course);
+      document.querySelector("input[name='university_location']").value =
+        validateDisplayedData(dataRow.university_location);
 
-        document.querySelector("input[name='highschool_name']").value = validateDisplayedData(dataRow.highschool_name);
-        document.querySelector("input[name='highschool_location']").value = validateDisplayedData(dataRow.highschool_location);
-        document.querySelector("input[name='highschool_year']").value = validateDisplayedData(dataRow.highschool_year);
-        document.querySelector("input[name='highschool_course']").value = validateDisplayedData(dataRow.highschool_course);
+      document.querySelector("input[name='university_year']").value =
+        validateDisplayedData(dataRow.university_year);
 
-        document.querySelector("input[name='elementary_name']").value = validateDisplayedData(dataRow.elementary_name);
-        document.querySelector("input[name='elementary_location']").value = validateDisplayedData(dataRow.elementary_location);
-        document.querySelector("input[name='elementary_year']").value = validateDisplayedData(dataRow.elementary_year);
-        document.querySelector("input[name='elementary_course']").value = validateDisplayedData(dataRow.elementary_course);
+      document.querySelector("input[name='university_course']").value =
+        validateDisplayedData(dataRow.university_course);
 
-        document.querySelector("input[name='technical_name']").value = validateDisplayedData(dataRow.technical_name);
-        document.querySelector("input[name='technical_training']").value = validateDisplayedData(dataRow.technical_training);
-        document.querySelector("input[name='technical_year']").value = validateDisplayedData(dataRow.technical_year);
-        document.querySelector("input[name='technical_course']").value = validateDisplayedData(dataRow.technical_course);
-        
+      // ===============================
+      // COLLEGE
+      // ===============================
+      document.querySelector("input[name='college_name']").value =
+        validateDisplayedData(dataRow.college_name);
 
-        //handle the radion button group
-        document.querySelector("input[name='review1']").value = validateDisplayedData(dataRow.review1);
-        const radVal = validateDisplayedData(dataRow.review1_status); // 'ongoing' or 'completed'
-        let radio = document.querySelector(`input[name='review1_status'][value = '${radVal}']`); 
-        if (radio !== null) {
-            radio.checked = true; //set the appropriate radio button
-        }
-        document.querySelector("input[name='review2']").value = validateDisplayedData(dataRow.review2);
-        const radVal2 = validateDisplayedData(dataRow.review2_status);
-        let radio2 = document.querySelector(`input[name='review2_status'][value = '${radVal2}']`);
-        if (radio2 !== null) {
-            radio2.checked = true;
-        }
-        document.querySelector("input[name='review3']").value = validateDisplayedData(dataRow.review3);
-        const radVal3 = validateDisplayedData(dataRow.review3_status);
-        let radio3 = document.querySelector(`input[name='review3_status'][value = '${radVal3}']`);
-        if (radio3 !== null) {
-            radio3.checked = true;
-        }
+      document.querySelector("input[name='college_location']").value =
+        validateDisplayedData(dataRow.college_location);
 
+      document.querySelector("input[name='college_year']").value =
+        validateDisplayedData(dataRow.college_year);
 
+      document.querySelector("input[name='college_course']").value =
+        validateDisplayedData(dataRow.college_course);
+
+      // ===============================
+      // HIGH SCHOOL
+      // ===============================
+      document.querySelector("input[name='highschool_name']").value =
+        validateDisplayedData(dataRow.highschool_name);
+
+      document.querySelector("input[name='highschool_location']").value =
+        validateDisplayedData(dataRow.highschool_location);
+
+      document.querySelector("input[name='highschool_year']").value =
+        validateDisplayedData(dataRow.highschool_year);
+
+      document.querySelector("input[name='highschool_course']").value =
+        validateDisplayedData(dataRow.highschool_course);
+
+      // ===============================
+      // ELEMENTARY
+      // ===============================
+      document.querySelector("input[name='elementary_name']").value =
+        validateDisplayedData(dataRow.elementary_name);
+
+      document.querySelector("input[name='elementary_location']").value =
+        validateDisplayedData(dataRow.elementary_location);
+
+      document.querySelector("input[name='elementary_year']").value =
+        validateDisplayedData(dataRow.elementary_year);
+
+      document.querySelector("input[name='elementary_course']").value =
+        validateDisplayedData(dataRow.elementary_course);
+
+      // ===============================
+      // TECHNICAL SCHOOL
+      // ===============================
+      document.querySelector("input[name='technical_name']").value =
+        validateDisplayedData(dataRow.technical_name);
+
+      document.querySelector("input[name='technical_training']").value =
+        validateDisplayedData(dataRow.technical_training);
+
+      document.querySelector("input[name='technical_year']").value =
+        validateDisplayedData(dataRow.technical_year);
+
+      document.querySelector("input[name='technical_course']").value =
+        validateDisplayedData(dataRow.technical_course);
+
+      // ===============================
+      // UNIVERSITY
+      // ===============================
+      document.querySelector("input[name='university_name']").value =
+        validateDisplayedData(dataRow.university_name);
+
+      document.querySelector("input[name='university_location']").value =
+        validateDisplayedData(dataRow.university_location);
+
+      document.querySelector("input[name='university_year']").value =
+        validateDisplayedData(dataRow.university_year);
+
+      document.querySelector("input[name='university_course']").value =
+        validateDisplayedData(dataRow.university_course);
+
+      // ===============================
+      // COLLEGE
+      // ===============================
+      document.querySelector("input[name='college_name']").value =
+        validateDisplayedData(dataRow.college_name);
+
+      document.querySelector("input[name='college_location']").value =
+        validateDisplayedData(dataRow.college_location);
+
+      document.querySelector("input[name='college_year']").value =
+        validateDisplayedData(dataRow.college_year);
+
+      document.querySelector("input[name='college_course']").value =
+        validateDisplayedData(dataRow.college_course);
+
+      // ===============================
+      // HIGH SCHOOL
+      // ===============================
+      document.querySelector("input[name='highschool_name']").value =
+        validateDisplayedData(dataRow.highschool_name);
+
+      document.querySelector("input[name='highschool_location']").value =
+        validateDisplayedData(dataRow.highschool_location);
+
+      document.querySelector("input[name='highschool_year']").value =
+        validateDisplayedData(dataRow.highschool_year);
+
+      document.querySelector("input[name='highschool_course']").value =
+        validateDisplayedData(dataRow.highschool_course);
+
+      // ===============================
+      // ELEMENTARY
+      // ===============================
+      document.querySelector("input[name='elementary_name']").value =
+        validateDisplayedData(dataRow.elementary_name);
+
+      document.querySelector("input[name='elementary_location']").value =
+        validateDisplayedData(dataRow.elementary_location);
+
+      document.querySelector("input[name='elementary_year']").value =
+        validateDisplayedData(dataRow.elementary_year);
+
+      document.querySelector("input[name='elementary_course']").value =
+        validateDisplayedData(dataRow.elementary_course);
+
+      // ===============================
+      // TECHNICAL
+      // ===============================
+      document.querySelector("input[name='technical_name']").value =
+        validateDisplayedData(dataRow.technical_name);
+
+      document.querySelector("input[name='technical_training']").value =
+        validateDisplayedData(dataRow.technical_training);
+
+      document.querySelector("input[name='technical_year']").value =
+        validateDisplayedData(dataRow.technical_year);
+
+      document.querySelector("input[name='technical_course']").value =
+        validateDisplayedData(dataRow.technical_course);
+
+      //handle the radion button group
+      document.querySelector("input[name='review1']").value =
+        validateDisplayedData(dataRow.review1);
+      const radVal = validateDisplayedData(dataRow.review1_status); // 'ongoing' or 'completed'
+      let radio = document.querySelector(
+        `input[name='review1_status'][value = '${radVal}']`,
+      );
+      if (radio !== null) {
+        radio.checked = true; //set the appropriate radio button
+      }
+      document.querySelector("input[name='review2']").value =
+        validateDisplayedData(dataRow.review2);
+      const radVal2 = validateDisplayedData(dataRow.review2_status);
+      let radio2 = document.querySelector(
+        `input[name='review2_status'][value = '${radVal2}']`,
+      );
+      if (radio2 !== null) {
+        radio2.checked = true;
+      }
+      document.querySelector("input[name='review3']").value =
+        validateDisplayedData(dataRow.review3);
+      const radVal3 = validateDisplayedData(dataRow.review3_status);
+      let radio3 = document.querySelector(
+        `input[name='review3_status'][value = '${radVal3}']`,
+      );
+      if (radio3 !== null) {
+        radio3.checked = true;
+      }
     } catch (error) {
         console.log('Error occured while populating form: ', error);
         return false;
