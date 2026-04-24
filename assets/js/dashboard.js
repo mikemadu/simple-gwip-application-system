@@ -106,7 +106,7 @@ function renderTable(dataArray) {
         tbody += '<tr class="apply-table-row" onclick="getOneApplication(' + item.id + ', event)" >' +
             '<td>' + (+dataArray.indexOf(item) + 1) + '</td>' +
             '<td>' + photoObj + '</td>' +
-            '<td></td>' +
+            '<td>' + item.filedate + '</td>' +
             '<td style="text-align: left;"><b>' + item.lastName.toUpperCase() + '</b>, ' + item.firstName + '</td>' +
             '<td>' + computeAgeFromDate(item.birthdate) + '</td>' + //will compute the age from the date of birth
             '<td style="text-align: left;">' + item.applyFor + '</td>' +

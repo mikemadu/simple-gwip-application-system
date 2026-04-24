@@ -145,6 +145,7 @@ function create_application()
             echo json_encode($response);
             die; //There is no point in continuing if connection fails. QUIT !
         }
+        $_POST['filedate'] = date('Y-m-d');
 
         $formData = array_filter($_POST); // Get all key/value pairs in a variable and remove empty values
         $keys = array_keys($formData); //get all the keys(field names) into an array
@@ -205,7 +206,7 @@ function get_application_list()
 
     $tablename = 'application';
 
-    $sql = "SELECT id, photo, firstName, lastName, applyFor, birthdate FROM $tablename";
+    $sql = "SELECT id, photo, filedate, firstName, lastName, applyFor, birthdate FROM $tablename";
     $db_result = $conn->query($sql);
     // Close connection
     $conn->close();
