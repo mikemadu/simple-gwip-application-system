@@ -59,56 +59,73 @@ if (isset($_SERVER['HTTP_API_COMMAND'])) {
 
 function login()
 {
+    // Load database connection settings (host, user, password, database name)
     require_once "db_config.php";
 
-    // Tell the browser that the response will be in JSON format
+    // Tell the browser we are returning JSON response (API format)
     header("Content-Type: application/json");
-    // Create a new MySQL database connection
+
+    // Create connection to MySQL database
     $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
 
-    // Check if the database connection failed
+    // Check if database connection failed
     if ($conn->connect_error) {
-        // If connection fails, return a JSON error message and stop execution
+        // Stop execution and return error message in JSON format
         exit(json_encode(["success" => false, "message" => "Connection failed"]));
     }
-    // Get the username and password sent from the login form (POST request)
-    // If they do not exist, assign an empty string
+    // Start session to store logged-in user information
+    session_start();
+    // Get username from POST request (or empty string if not sent)
     $username = $_POST['username'] ?? '';
+    // Get password from POST request (or empty string if not sent)
     $password = $_POST['password'] ?? '';
 
-    // Prepare a SQL statement to get the admin record with the matching username
-    // LIMIT 1 ensures only one result is returned
+    // Prepare SQL statement to find admin with matching username
+    // LIMIT 1 ensures only one record is returned
     $stmt = $conn->prepare("SELECT id, username, password FROM admin WHERE username = ? LIMIT 1");
 
-    // Check if the query preparation failed
+    // Check if SQL preparation failed
     if (!$stmt) {
-        // If the query fails, return an error message
+        // Stop execution and return error message
         exit(json_encode(["success" => false, "message" => "Query failed"]));
     }
 
-    // Bind the username parameter to the prepared statement
-    // "s" means the parameter is a string
+    // Bind the username parameter to the SQL query
+    // "s" means string type
     $stmt->bind_param("s", $username);
+
     // Execute the SQL query
     $stmt->execute();
-    // Bind the results from the query to PHP variables
+
+    // Store results into variables:
+    // $id = user ID
+    // $db_username = username from database
+    // $db_password = hashed password from database
     $stmt->bind_result($id, $db_username, $db_password);
 
-    // Check if a record was found and verify the password
-    if ($stmt->fetch() && $password === $db_password) {
-        // If login is successful, store the username in a session
+    // Fetch the record and verify password
+    // password_verify() compares plain password with hashed password
+    if ($stmt->fetch() && password_verify($password, $db_password)) {
+
+        // Store username in session after successful login
         $_SESSION['admin'] = $db_username;
-        // Prepare a success response
+
+        // Return success response
         $res = ["success" => true, "message" => "Login successful"];
+
     } else {
-        // If login fails, return an error message
+
+        // Return error response if login fails
         $res = ["success" => false, "message" => "Invalid username or password"];
     }
-    // Close the prepared statement
+
+    // Close prepared statement to free resources
     $stmt->close();
-    // Close the database connection
+
+    // Close database connection
     $conn->close();
-    // Return the result as JSON and stop the script
+
+    // Return response as JSON and stop script execution
     exit(json_encode($res));
 }
 

@@ -8,8 +8,6 @@ if (!isset($_SESSION['admin'])) {
 ?>
 
 
-
-
 <!doctype html>
 <html lang="en">
 
@@ -350,7 +348,7 @@ if (!isset($_SESSION['admin'])) {
                                 <input type="text" name="weight" style="width: 15%" />
 
                                 <label>Birth Date:</label>
-                                <input type="date" name="birthDate" style="width: 30%" required />
+                                <input type="date" name="birthdate" style="width: 30%" required />
                             </div>
 
                             <div class="form-group inline-fields">

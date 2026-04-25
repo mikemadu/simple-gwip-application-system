@@ -285,7 +285,7 @@ function populateForm(dataRow) {
       document.querySelector("input[name='chk_gwiphire']").checked =
         +validateDisplayedData(dataRow.chk_gwiphire); //checkbox
 
-      document.querySelector("input[name='birthDate']").value =
+      document.querySelector("input[name='birthdate']").value =
         validateDisplayedData(dataRow.birthdate).substring(0, 10);
       
       document.querySelector("input[name='filedate']").value =
