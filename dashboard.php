@@ -247,7 +247,7 @@ if (!isset($_SESSION['admin'])) {
                         Please fill out the following with black ball pen (<strong>PLEASE PRINT IN BLOCK
                             LETTERS</strong>)
                     </div>
-                    <div>DATE: <input type="text" name="filedate" style="border: none; border-bottom: 1px solid #000">
+                    <div>DATE: <input type="date" name="filedate" style="border: none; border-bottom: 1px solid #000">
                     </div>
                 </div>
 
