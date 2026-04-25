@@ -109,7 +109,7 @@ function renderTable(dataArray) {
             '<td>' + (item.filedate ? item.filedate.split('-')[1] + '/' + item.filedate.split('-')[2] + '/' + item.filedate.split('-')[0] : 'N/A') + '</td>' +
             // '<td>' + (item.filedate  ? new Date(item.filedate).toLocaleDateString('en-US') : 'N/A') + '</td>' +
             '<td style="text-align: left;"><b>' + item.lastName.toUpperCase() + '</b>, ' + item.firstName + '</td>' +
-            '<td>' + computeAgeFromDate(item.birthDate) + '</td>' + //will compute the age from the date of birth
+            '<td>' + computeAgeFromDate(item.birthdate) + '</td>' + //will compute the age from the date of birth
             '<td style="text-align: left;">' + item.applyFor + '</td>' +
             '<td><button class="delete-button" title="Delete Application" onclick="deleteApplication(' + item.id + ')">-- delete --</button></td>' +
             '</tr>';
