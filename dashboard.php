@@ -63,6 +63,41 @@ if (!isset($_SESSION['admin'])) {
                 margin-bottom: 25px;
             }
 
+            /*USER INFO */
+            .user-info {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                border-bottom: 1px solid #999999;
+                padding: 10px;
+
+                button {
+                    background: #56a2ee;
+                    color: #fff;
+                    padding: 10px 17px;
+                    border: none;
+                    border-radius: 6px;
+                    font-size: 16px;
+                    cursor: pointer;
+
+                }
+            }
+
+            .user-manage {
+
+                button {
+                    background: #085722;
+                    color: #fff;
+
+
+                }
+
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: #06421a;
+                }
+            }
+
             /* TOP BAR */
             .top-bar {
                 display: flex;
@@ -91,6 +126,7 @@ if (!isset($_SESSION['admin'])) {
                     background: #498ed3;
                 }
             }
+
 
             .apply-table {
                 width: 100%;
@@ -140,13 +176,28 @@ if (!isset($_SESSION['admin'])) {
 
         <!-- Dashboard -->
         <div id="adminSection" class="dashboard-box">
-            <h1>GOD'S WILL INTERNATIONAL PLACEMENT, INC</h1>
-            <p class="subtitle">Medical Professionals Application Form</p>
+            <!-- <h1>GOD'S WILL INTERNATIONAL PLACEMENT, INC</h1> -->
+            <h1>GLOBAL EXPERTISE MANAGEMENT, INC.</h1>
+            <h2 style='margin:0; font-size: 27px; color: #2c3e50;text-align:center;'>Applications Dashboard</h2>
+            <hr style='margin: 0;'>
 
-            <div class="top-bar">
-                <h2>Applications Dashboard</h2>
-                <button id="btnLogout">Logout</button>
+            <div class='user-info'>
+                <div>
+                    <button id='manageUsersButton'  style='background: #085722;color: #fff;'>
+                    Manage Users</button>
+                </div>
+                <div style='display:grid;grid-template-columns:1fr auto;gap:6px;'>
+                    <div style='padding:5px;border-radius:4px;border:1px solid #56a2ee;font-size:.8rem;font-weight:700;'>
+                        <span id='adminFirst'>A very long First</span> &nbsp; <span id='adminLast'>Last Name that is very long</span><br>
+                        <span id='designation'></span>
+                    </div>
+                    <div style='text-align: right;'> <button id="btnLogout">Logout</button></div>
+                </div>
+
             </div>
+            <p class="subtitle" style='text-align:left;'>Submitted Medical Professionals Application Forms</p>
+
+
 
             <input type="text" id="searchName" onkeyup='searchByName(event)' placeholder="Search by Name" />
             <input type="text" id="filterJob" onkeyup='searchByJobCategory(event)'
@@ -471,9 +522,9 @@ if (!isset($_SESSION['admin'])) {
                     <div class="review-row">
                         <div>1. <input type="text" name="review1" /></div>
                         <div>
-                            <label for='review1_status'><input type="radio" name="review1_status" value='ongoing'   />
+                            <label for='review1_status'><input type="radio" name="review1_status" value='ongoing' />
                                 On-Going</label>
-                            <label for='review1_status'><input type="radio" name="review1_status" value='completed'  />
+                            <label for='review1_status'><input type="radio" name="review1_status" value='completed' />
                                 Completed</label>
                         </div>
                     </div>

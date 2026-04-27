@@ -8,7 +8,7 @@ window.addEventListener("load", async function () {
 
     //Make sure our dashboard view is shown
     document.querySelector(".dashboard-wrapper").style.display = "block";
-    await getApplicationList(); //get the list of applications after the page has loaded
+    await getApplicationList(); //get the list of applications after the page has loaded   
 });
 
 

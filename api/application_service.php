@@ -82,7 +82,7 @@ function login()
 
     // Prepare SQL statement to find admin with matching username
     // LIMIT 1 ensures only one record is returned
-    $stmt = $conn->prepare("SELECT id, username, password FROM admin WHERE username = ? LIMIT 1");
+    $stmt = $conn->prepare("SELECT id, username, password, role, logins FROM admin WHERE username = ? LIMIT 1");
 
     // Check if SQL preparation failed
     if (!$stmt) {
@@ -101,7 +101,8 @@ function login()
     // $id = user ID
     // $db_username = username from database
     // $db_password = hashed password from database
-    $stmt->bind_result($id, $db_username, $db_password);
+   // $stmt->bind_result($id, $db_username, $db_password);
+    $stmt->bind_result($id, $db_username, $db_password, $role, $logins);
 
     // Fetch the record and verify password
     // password_verify() compares plain password with hashed password
@@ -109,6 +110,10 @@ function login()
 
         // Store username in session after successful login
         $_SESSION['admin'] = $db_username;
+        //
+        $_SESSION['role'] = $role;
+
+        //update the database with the current date and increase the login number
 
         // Return success response
         $res = ["success" => true, "message" => "Login successful"];
