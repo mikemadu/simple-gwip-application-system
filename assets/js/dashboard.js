@@ -79,7 +79,7 @@ function renderUsersTable(users) {
       '<td style="text-align: left;"><b>' + item.firstname.toUpperCase() + '</b>, ' + item.lastname + '</td>' +
       '<td>' + (item.role) + '</td>' + //will get designation
       '<td style="text-align: left;">' + item.logins + '</td>' +
-      '<td><button class="delete-button" title="Delete Application" onclick="deleteUser(' + item.id + ')">-- delete --</button></td>' +
+      '<td><button type="button" class="delete-button" title="Delete Application" onclick="deleteUser(' + item.id + ')">-- delete --</button></td>' +
       '</tr>';
   });
   // after the loop:
