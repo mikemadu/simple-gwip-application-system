@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['admin'])) {
+if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
     header("Location: index.html"); // redirect to login
     exit();
 }
@@ -176,22 +176,22 @@ if (!isset($_SESSION['admin'])) {
 
         <!-- Dashboard -->
         <div id="adminSection" class="dashboard-box">
-            <!-- <h1>GOD'S WILL INTERNATIONAL PLACEMENT, INC</h1> -->
-            <h1>GLOBAL EXPERTISE MANAGEMENT, INC.</h1>
+            <h1>GOD'S WILL INTERNATIONAL PLACEMENT, INC</h1>
             <h2 style='margin:0; font-size: 27px; color: #2c3e50;text-align:center;'>Applications Dashboard</h2>
             <hr style='margin: 0;'>
 
             <div class='user-info'>
                 <div>
-                    <button id='manageUsersButton'  style='background: #085722;color: #fff;'>
-                    Manage Users</button>
+                    <button id='manageUsersButton' style='background: #085722;color: #fff;' onclick='openUserEncoding()'>
+                        Manage Users</button>
                 </div>
-                <div style='display:grid;grid-template-columns:1fr auto;gap:6px;'>
+                <div style='display:grid;grid-template-columns:1fr auto auto;gap:6px;'>
+                    <div style='padding-top:10px; font-style: italic;'>Logged In:</div>
                     <div style='padding:5px;border-radius:4px;border:1px solid #56a2ee;font-size:.8rem;font-weight:700;'>
-                        <span id='adminFirst'>A very long First</span> &nbsp; <span id='adminLast'>Last Name that is very long</span><br>
-                        <span id='designation'></span>
+                        <span id='userFirstName'></span> &nbsp; <span id='userLastName'></span><br>
+                        <span id='designation' style='color:brown'></span>
                     </div>
-                    <div style='text-align: right;'> <button id="btnLogout">Logout</button></div>
+                    <div style='text-align: right;padding-top:2px;'> <button id="btnLogout">Logout</button></div>
                 </div>
 
             </div>
@@ -1210,4 +1210,94 @@ if (!isset($_SESSION['admin'])) {
 
 <dialog style='color:white; background-color: #454545;' id="loading-dialog">
     <div>Retrieving Data ...</div>
+</dialog>
+
+<!--USER MANAGEMENT     =============================================-->
+<dialog style='background-color: #ffffff;border-radius: 10px;' id='users-dialog'>
+    <style>
+        h3 {
+            margin: 0;
+        }
+
+        label {
+            font-style: italic;
+            font-size: .85rem;
+            font-weight: bold;
+        }
+
+        .user-button {
+            background-color: #3e07a5;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+
+            &:hover {
+                background-color: #280668;
+            }
+        }
+
+        .user-button-close {
+            background-color: #e74c3c;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+
+            &:hover {
+                background-color: #aa362a;
+            }
+        }
+    </style>
+    <form>
+        <div>
+            <div id='user-encode-panel' style='display:grid; grid-template-columns: 1fr 1fr 1fr;gap:5px;'>
+                <h3 style='grid-column:span 3;'>Manage Users</h3>
+                <div><label>Username</label><br><input type='text' name='username' /></div>
+                <div style='grid-column:span 2;'></div>
+                <div><label>First Name</label><br><input type='text' name='firstname' /></div>
+                <div><label>Last Name</label><br><input type='text' name='lastname' /></div>
+                <div><label>Role</label><br>
+                    <select name='role'>
+                        <option value=''>-- select --</option>
+                        <option value='1'>Admin</option>
+                        <option value='2'>Manager</option>
+                        <option value='3'>Staff</option>
+                    </select>
+                </div>
+                <div style='grid-column:span 2;'><label>Password</label><br><input type='text' name='password' /></div>
+                <div></div>
+
+                <div></div>
+                <div style='text-align:right;'>
+                    <button type='button' class='user-button' id='add-user'>Add User</button>
+                </div>
+                <div style='text-align:right;'>
+                    <button type='button' class='user-button-close' onclick='closeuserdialog()'>Close</button>
+                </div>
+
+            </div>
+            <table id='users-table'>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Last Login</th>
+                        <th>Logins</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id='users-table-body'>
+
+                </tbody>
+            </table>
+
+        </div>
+    </form>
 </dialog>

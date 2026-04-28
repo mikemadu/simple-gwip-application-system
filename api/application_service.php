@@ -1,7 +1,7 @@
 <?php
 
 // Start or resume session to store user data
-session_start(); 
+session_start();
 
 // ini_set('display_errors', '1');  //REMOVE the comment during development
 if (isset($_SERVER['HTTP_API_COMMAND'])) {
@@ -30,7 +30,7 @@ if (isset($_SERVER['HTTP_API_COMMAND'])) {
         }
     }
 
-        // Check if the API command sent from the frontend is "login"
+    // Check if the API command sent from the frontend is "login"
     if ($api == 'login') {
         // Call the login function to authenticate the user
         login();
@@ -54,7 +54,6 @@ if (isset($_SERVER['HTTP_API_COMMAND'])) {
         // Stop script execution after logout
         exit();
     }
-
 }
 
 function login()
@@ -75,63 +74,75 @@ function login()
     }
     // Start session to store logged-in user information
     session_start();
-    // Get username from POST request (or empty string if not sent)
-    $username = $_POST['username'] ?? '';
-    // Get password from POST request (or empty string if not sent)
-    $password = $_POST['password'] ?? '';
+    try {
 
-    // Prepare SQL statement to find admin with matching username
-    // LIMIT 1 ensures only one record is returned
-    $stmt = $conn->prepare("SELECT id, username, password, role, logins FROM admin WHERE username = ? LIMIT 1");
+        $username = $_POST['username'] ;
+        // Get password from POST request (or empty string if not sent)
+        $password = $_POST['password'];
 
-    // Check if SQL preparation failed
-    if (!$stmt) {
-        // Stop execution and return error message
-        exit(json_encode(["success" => false, "message" => "Query failed"]));
+        // Prepare SQL statement to find admin with matching username
+        // LIMIT 1 ensures only one record is returned
+        $stmt = $conn->prepare("SELECT id, username, password, role, logins, firstname, lastname FROM admin WHERE username = ? LIMIT 1");
+
+        // Check if SQL preparation failed
+        if (!$stmt) {
+            // Stop execution and return error message
+            exit(json_encode(["success" => false, "message" => "Query failed"]));
+        }
+
+        // Bind the username parameter to the SQL query
+        // "s" means string type
+        $stmt->bind_param("s", $username);
+
+        // Execute the SQL query
+        $stmt->execute();
+
+        // Store results into variables:
+        // $id = user ID
+        // $db_username = username from database
+        // $db_password = hashed password from database
+        // $stmt->bind_result($id, $db_username, $db_password);
+        $stmt->bind_result($id, $db_username, $db_password, $role, $logins, $firstname, $lastname);
+
+        // Fetch the record and verify password
+        // password_verify() compares plain password with hashed password
+        if ($stmt->fetch() && password_verify($password, $db_password)) {
+
+            // Store username in session after successful login
+            $_SESSION['admin'] = $db_username;
+            //
+            $logged_in_user = array();
+            $logged_in_user['id'] = $id;
+            $logged_in_user['username'] = $db_username;
+            $logged_in_user['role'] = $role;
+            $logged_in_user['firstname'] = $firstname;
+            $logged_in_user['lastname'] = $lastname;
+
+            $_SESSION['logged_in_user'] = $logged_in_user;
+          
+
+            //update the database with the current date and increase the login number
+
+            // Return success response
+            $res = ["success" => true, "message" => "Login successful", "result" => $logged_in_user];
+        } else {
+
+            // Return error response if login fails
+            $res = ["success" => false, "message" => "Invalid username or password"];
+        }
+
+        // Close prepared statement to free resources
+        $stmt->close();
+
+        // Close database connection
+        $conn->close();
+        exit(json_encode($res));
+    } catch (Exception $th) {
+        // Return error response if exception occure
+        $res = ["success" => false, "message" => $th->getMessage()];
+        // Return response as JSON and stop script execution
+        exit(json_encode($res));
     }
-
-    // Bind the username parameter to the SQL query
-    // "s" means string type
-    $stmt->bind_param("s", $username);
-
-    // Execute the SQL query
-    $stmt->execute();
-
-    // Store results into variables:
-    // $id = user ID
-    // $db_username = username from database
-    // $db_password = hashed password from database
-   // $stmt->bind_result($id, $db_username, $db_password);
-    $stmt->bind_result($id, $db_username, $db_password, $role, $logins);
-
-    // Fetch the record and verify password
-    // password_verify() compares plain password with hashed password
-    if ($stmt->fetch() && password_verify($password, $db_password)) {
-
-        // Store username in session after successful login
-        $_SESSION['admin'] = $db_username;
-        //
-        $_SESSION['role'] = $role;
-
-        //update the database with the current date and increase the login number
-
-        // Return success response
-        $res = ["success" => true, "message" => "Login successful"];
-
-    } else {
-
-        // Return error response if login fails
-        $res = ["success" => false, "message" => "Invalid username or password"];
-    }
-
-    // Close prepared statement to free resources
-    $stmt->close();
-
-    // Close database connection
-    $conn->close();
-
-    // Return response as JSON and stop script execution
-    exit(json_encode($res));
 }
 
 
@@ -170,7 +181,7 @@ function create_application()
 
         $formData = array_filter($_POST); // Get all key/value pairs in a variable and remove empty values
         $formData['filedate'] = $_POST['filedate'] ?? date('Y-m-d');
-        
+
         $keys = array_keys($formData); //get all the keys(field names) into an array
         $all_fieldnames =  implode(",", $keys); //from the submitted form, create a comma separated string of field names
         $all_values = ''; // all our incoming values will enter here

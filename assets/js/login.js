@@ -44,6 +44,8 @@ if (btnLogin) {
 
     // If login is successful
     if (data.success) {
+      //save the loggedInUser to the localStorage
+      localStorage.setItem("loggedInUser", JSON.stringify(data.result)); // Save the logged-in user information in localStorage as a stringified JSON object (data.result);
       // Redirect the user to the dashboard page
       window.location.href = "dashboard.php";
     } else {

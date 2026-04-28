@@ -4,13 +4,67 @@ let dataArray = [];
 
 window.addEventListener("load", async function () {
     // Don't show our read-only form on this page that is used to display the details of one application
-    document.getElementById('printable-application').style.display = 'none';
+  document.getElementById('printable-application').style.display = 'none';
+  
+ 
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  if (!loggedInUser) {
+    // No user is logged in, redirect to login page
+    window.location.href = 'index.html';
+  }
+  //Display the logged in user
+  document.getElementById('userFirstName').textContent = loggedInUser.firstname;
+  document.getElementById('userLastName').textContent = loggedInUser.lastname;
+  document.getElementById('designation').textContent = getDesignationFromCode(+loggedInUser.role); 
 
     //Make sure our dashboard view is shown
     document.querySelector(".dashboard-wrapper").style.display = "block";
     await getApplicationList(); //get the list of applications after the page has loaded   
 });
 
+//USER-MANAGEMENT ========================================
+//========================================================
+function getDesignationFromCode(code) {
+    if (code === 1) {
+        return 'ADMIN';
+    } else if (code === 2) {
+        return 'MANAGER';
+    } else if (code === 3) {
+        return 'STAFF';
+    } else {
+        return '-';
+    }
+}
+
+function openUserEncoding(){
+  document.getElementById('users-dialog').showModal();
+  //load users
+  getUsersList();
+}
+
+function closeuserdialog(){
+document.getElementById('users-dialog').close();
+}
+
+function getUsersList(){
+  const myHeaders = {
+    'api-command': 'get-users'
+  }
+  const response = fetch('api/application_service.php', { method: 'POST', headers: myHeaders });
+  const data = response.json();
+
+}
+
+function createUser(){
+  const myHeaders = {
+    'api-command': 'create-user'
+  }
+  const response = fetch('api/application_service.php', { method: 'POST', headers: myHeaders });
+  const data = response.json();
+}
+
+// END USER-MANAGEMENT ========================================
+//========================================================
 
 async function getApplicationList() {
     const myHeaders = {

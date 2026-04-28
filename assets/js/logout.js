@@ -24,6 +24,8 @@ if (btnLogout) {
 
     // If logout was successful
     if (data.success) {
+      // Clear the loggedInUser from localStorage
+      localStorage.removeItem("loggedInUser");
       // Redirect the user to the login page
       window.location.href = "index.html";
     } else {
