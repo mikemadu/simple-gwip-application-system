@@ -7,7 +7,6 @@ window.addEventListener("load", async function () {
   // Don't show our read-only form on this page that is used to display the details of one application
   document.getElementById('printable-application').style.display = 'none';
 
-
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
   if (!loggedInUser) {
     // No user is logged in, redirect to login page
@@ -20,9 +19,14 @@ window.addEventListener("load", async function () {
 
   //Make sure our dashboard view is shown
   document.querySelector(".dashboard-wrapper").style.display = "block";
+  //show the ManageUsers button if the user is an admin
+  if (loggedInUser.role === 1) {
+    document.getElementById('manageUsersButton').style.display = 'block';
+  }
   await getApplicationList(); //get the list of applications after the page has loaded   
 });
 
+//========================================================
 //USER-MANAGEMENT ========================================
 //========================================================
 function getDesignationFromCode(code) {
@@ -41,10 +45,32 @@ function openUserEncoding() {
   document.getElementById('users-dialog').showModal();
   //load users
   getUsersList();
+
 }
 
+async function createUser() {
+  const userFrm = document.getElementById("user-form");
+  const formData = new FormData(userFrm);
+  const myHeaders = {
+    'api-command': 'create-user'
+  };
+  const response = await fetch('api/users_service.php', { method: 'POST', body: formData, headers: myHeaders });
+  const data = await response.json();
+
+  if (data.success) {
+    getUsersList();
+    //clear the form
+    userFrm.reset();
+  }
+}
+
+
 function closeuserdialog() {
-  document.getElementById('users-dialog').close();
+  //reset the user form if it has any entries
+  const userFrm = document.getElementById("user-form");
+   userFrm.reset();
+  //close the dialog
+  document.getElementById('users-dialog').close();  
 }
 
 async function getUsersList() {
@@ -72,7 +98,7 @@ function renderUsersTable(users) {
       '<td>' + (+users.indexOf(item) + 1) + '</td>' +
       '<td>' + item.username + '</td>' +
       '<td style="text-align: left;">' + item.firstname + ' ' + item.lastname.toUpperCase() + '</td>' +
-      '<td>' + (item.role) + '</td>' + //will get designation
+      '<td>' + getDesignationFromCode(+item.role) + '</td>' + // get designation
       '<td>' + (item.lastlogin ? item.lastlogin.split('-')[1] + '/' + item.lastlogin.split('-')[2] + '/' + item.lastlogin.split('-')[0] : 'N/A') + '</td>' +   // Format filedate from YYYY-MM-DD to MM/DD/YYYY
       '<td style="text-align: left;">' + item.logins + '</td>' +
       '<td><button type="button" class="delete-button" style="border-radius: 50%;width:24px;height:23px;padding:0;" title="Delete This User" onclick="deleteUser(' + item.id + ')">X</button></td>' +
@@ -83,28 +109,23 @@ function renderUsersTable(users) {
   return true;
 }
 
-//
-  //.addEventListener("submit", async function (e) {
-
-  //e.preventDefault(); // stop normal form submission
-
-//   const myHeaders = {
-//    'api-command': 'create-user'
-//  }
- // const myform = document.getElementById('userForm');
-//  const formData = new FormData(myform);
-
-//});
-function createUser() {
- const userFrm = document.getElementById("userForm");
- // const response = await fetch('api/users_service.php', { method: 'POST', body: formData, headers: myHeaders });
- // const data = await response.json();
-
- // if (data.success) {
-   // getUsersList();
- // }
+async function deleteUser(userId) {
+  if (confirm('Are you sure you want to delete this user?') === false) { return; }  
+  const myHeaders = {
+    'api-command': 'delete-user'
+  };
+  const formData = new FormData();
+  formData.append('id', userId);
+  const response = await fetch('api/users_service.php', { method: 'POST', headers: myHeaders, body: formData });
+  const data = await response.json();
+  if (data.success) {
+    getUsersList(); //reload the users
+  }
 }
 
+
+
+//===========================================================
 // END USER-MANAGEMENT ========================================
 //========================================================
 
@@ -183,6 +204,9 @@ function searchByJobCategory(event) {
  */
 function renderTable(dataArray) {
   const tableBody = document.getElementById('table-body');
+  //get permission level
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  const permissionLevel = loggedInUser.role; //admin, staff or manager
   let tbody = '';
   if (dataArray.length === 0) { // if an empty array was passed in, render a message and return
     tbody = '<tr><td colspan="7" style="text-align: center;font-size:1.2rem;color:red;">No applications found</td></tr>';
@@ -206,9 +230,13 @@ function renderTable(dataArray) {
       // '<td>' + (item.filedate  ? new Date(item.filedate).toLocaleDateString('en-US') : 'N/A') + '</td>' +
       '<td style="text-align: left;"><b>' + item.lastName.toUpperCase() + '</b>, ' + item.firstName + '</td>' +
       '<td>' + computeAgeFromDate(item.birthdate) + '</td>' + //will compute the age from the date of birth
-      '<td style="text-align: left;">' + item.applyFor + '</td>' +
-      '<td><button class="delete-button" title="Delete Application" onclick="deleteApplication(' + item.id + ')">-- delete --</button></td>' +
-      '</tr>';
+      '<td style="text-align: left;">' + item.applyFor + '</td>';
+      if(permissionLevel === 1) { //if admin render a delete button
+       tbody += '<td><button class="delete-button" title="Delete Application" onclick="deleteApplication(' + item.id + ')">-- delete --</button></td>' + '</tr>';
+      } else {//else render empty column
+       tbody +=  '<td></td>' + '</tr>';
+      }
+      
   });
   // after the loop:
   tableBody.innerHTML = tbody; //insert the data into the table

@@ -4,7 +4,6 @@
 // Start or resume session to store user data
 session_start();
 
-// ini_set('display_errors', '1');  //REMOVE the comment during development
 if (isset($_SERVER['HTTP_API_COMMAND'])) {
     $api = $_SERVER['HTTP_API_COMMAND']; //get the API command
 
@@ -26,15 +25,16 @@ if (isset($_SERVER['HTTP_API_COMMAND'])) {
     if ($api == 'get-users') {
         // Call the get_users function
         get_users();
-       
+    }
+    if ($api == 'create-user') {
+        create_user(); //create users();
     }
     //Delete a user
     if ($api == 'delete-user') {
-    if (isset($_POST['id'])) { //data sent from the front end must have the ID of the record present
+        if (isset($_POST['id'])) { //data sent from the front end must have the ID of the record present
             $userID = intval($_POST['id']); //convert to integer
             delete_user($userID);
-        }       
-       
+        }
     }
 }
 
@@ -113,22 +113,22 @@ function login()
             $logged_in_user['lastname'] = $lastname;
 
             $_SESSION['logged_in_user'] = $logged_in_user; // push the logged in user into the session 
-        
-$stmt->close();
+
+            $stmt->close();
             //update the database table with the current date and increase the login number
             $logins = $logins + 1;
             $sql = "UPDATE admin SET logins = $logins, lastlogin = NOW() WHERE username = '$username'";
             $conn->query($sql);
             // Return success response
             $res = ["success" => true, "message" => "Login successful", "result" => $logged_in_user];
-             
-              // $conn->close();
+
+            // $conn->close();
         } else {
             // Return error response if login fails
             $res = ["success" => false, "message" => "Invalid username or password"];
         }
         // Close prepared statement to free resources
-       // $stmt->close();
+        // $stmt->close();
         // Close database connection
         $conn->close();
         exit(json_encode($res));
@@ -185,17 +185,20 @@ function create_user()
     if (isset($_POST['lastname'])) $lastname = $_POST['lastname'];
 
     $lastlogin = date('Y-m-d'); //get current date
+    $logins = 0;
     //hash the plain-text password
     $hashed_password = password_hash($password . $salt, PASSWORD_DEFAULT);
     // Prepare SQL statement
     $sql = "INSERT INTO admin (username, password, role, firstname, lastname, logins, lastlogin) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     // Bind parameters
-    $stmt->bind_param("ssissis", $username, $hashed_password, $role, $firstname, $lastname, 0, $lastlogin);
+    $stmt->bind_param("ssissis", $username, $hashed_password, $role, $firstname, $lastname, $logins, $lastlogin);
     // Execute statement
     if ($stmt->execute()) {
-        // If successfully added, call get_users() to refresh the user list
-        get_users();
+       //get the id of the newly created user
+        $id = $conn->insert_id;
+        // Return success response
+        exit(json_encode(["success" => true, "message" => "User created successfully", "result" => $id]));
     } else {
         // Return error response
         exit(json_encode(["success" => false, "message" => "Error creating user: " . $conn->error]));
@@ -238,13 +241,12 @@ function delete_user($id)
     require_once "db_config.php";
 
     // Connect to MySQL
-    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName); // Using mysqli here
-
+    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
     // Check connection
     if ($conn->connect_error) {
         //return error to front end
         exit(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
-    }    
+    }
     // Prepare SQL statement
     $sql = "DELETE FROM admin WHERE id = ?";
     $stmt = $conn->prepare($sql);
@@ -252,11 +254,10 @@ function delete_user($id)
     $stmt->bind_param("i", $id);
     // Execute statement
     if ($stmt->execute()) {
-        // If successfully deleted, call get_users() to refresh the user list
-        get_users();
+        //return success response
+        exit(json_encode(["success" => true, "message" => "User deleted successfully"]));
     } else {
         // Return error response
         exit(json_encode(["success" => false, "message" => "Error deleting user: " . $conn->error]));
     }
 }
-

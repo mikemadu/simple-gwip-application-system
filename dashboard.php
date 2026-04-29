@@ -182,7 +182,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
 
             <div class='user-info'>
                 <div>
-                    <button id='manageUsersButton' style='background: #085722;color: #fff;' onclick='openUserEncoding()'>
+                    <button id='manageUsersButton' style='background: #085722;color: #fff;display:none;' onclick='openUserEncoding()'>
                         Manage Users</button>
                 </div>
                 <div style='display:grid;grid-template-columns:1fr auto auto;gap:6px;'>
@@ -1201,8 +1201,19 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
         </div>
     </div>
 
+    <script src="./assets/js/dashboard.js"></script>
+    <script src="./assets/js/logout.js"></script>
+</body>
+
+</html>
+
+<dialog style='color:white; background-color: #454545;' id="loading-dialog">
+    <div>Retrieving Data ...</div>
+</dialog>
+
+
 <!--USER MANAGEMENT     =============================================-->
-<dialog style='background-color: #ffffff;border-radius: 10px;' id='users-dialog'>
+<dialog style='background-color: #ffffff;border-radius: 10px; max-height: calc(100vh - 200px);' id='users-dialog'>
     <style>
         h3 {
             margin: 0;
@@ -1255,7 +1266,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
             }
         }
     </style>
-    <form id='userForm'>
+    <form id='user-form' method="POST" >
         <div>
             <div id='user-encode-panel' style='display:grid; grid-template-columns: 1fr 1fr 1fr;gap:5px;'>
                 <h3 style='grid-column:span 3;color: #0c4b17;'>Manage Users</h3>
@@ -1283,33 +1294,26 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
                 </div>
                 <hr style='grid-column:span 3; color:black'>
             </div>
-            <table id='users-table'>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Last Login</th>
-                        <th>Logins</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id='users-table-body'>
+            <div style='height: calc(100vh - 405px); overflow-y: scroll;'>
+                <table id='users-table'>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Last Login</th>
+                            <th>Logins</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id='users-table-body'>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+
+            </div>
+
         </div>
     </form>
 </dialog>
-
-    <script src="./assets/js/dashboard.js"></script>
-    <script src="./assets/js/logout.js"></script>
-</body>
-
-</html>
-
-<dialog style='color:white; background-color: #454545;' id="loading-dialog">
-    <div>Retrieving Data ...</div>
-</dialog>
-
