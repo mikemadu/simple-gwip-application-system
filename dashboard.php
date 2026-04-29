@@ -1201,17 +1201,6 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
         </div>
     </div>
 
-
-    <script src="./assets/js/dashboard.js"></script>
-    <script src="./assets/js/logout.js"></script>
-</body>
-
-</html>
-
-<dialog style='color:white; background-color: #454545;' id="loading-dialog">
-    <div>Retrieving Data ...</div>
-</dialog>
-
 <!--USER MANAGEMENT     =============================================-->
 <dialog style='background-color: #ffffff;border-radius: 10px;' id='users-dialog'>
     <style>
@@ -1259,40 +1248,40 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
             border: 1px solid #4488e2;
             font-size: 13px;
 
-            &:focus { 
-                border:1px solid #3399ff;              
+            &:focus {
+                border: 1px solid #3399ff;
                 outline: none;
-               box-shadow: 0 2px 11px rgba(51, 153, 255, 0.5);              
+                box-shadow: 0 2px 11px rgba(51, 153, 255, 0.5);
             }
         }
     </style>
-    <form >
+    <form id='userForm'>
         <div>
             <div id='user-encode-panel' style='display:grid; grid-template-columns: 1fr 1fr 1fr;gap:5px;'>
                 <h3 style='grid-column:span 3;color: #0c4b17;'>Manage Users</h3>
-                <div><label>Username</label><br><input type='text' name='username' /></div>
+                <div><label>Username</label><span style='color:red;'>*</span><br><input type='text' name='username' /></div>
                 <div style='grid-column:span 2;'></div>
                 <div><label>First Name</label><br><input type='text' name='firstname' /></div>
                 <div><label>Last Name</label><br><input type='text' name='lastname' /></div>
-                <div><label>Role</label><br>
-                    <select name='role'>
+                <div><label>Role</label><span style='color:red;'>*</span><br>
+                    <select name='role' required>
                         <option value=''>-- select --</option>
                         <option value='1'>Admin</option>
                         <option value='2'>Manager</option>
                         <option value='3'>Staff</option>
                     </select>
                 </div>
-                <div style='grid-column:span 2;'><label>Password</label><br><input type='text' name='password' /></div>
-                <div></div>
-
-                <div></div>
-                <div style='text-align:right;'>
-                    <button type='button' class='user-button' id='add-user'>Add User</button>
+                <div>
+                    <label>Password</label>
+                    <span style='color:red;'>*</span><br>
+                    <input type='text' name='password' required />
                 </div>
-                <div style='text-align:right;'>
+                <div></div>
+                <div style='text-align:right;padding-top:20px;'>
+                    <button type='button' class='user-button' onclick='createUser()'>Add User</button>
                     <button type='button' class='user-button-close' onclick='closeuserdialog()'>Close</button>
                 </div>
-
+                <hr style='grid-column:span 3; color:black'>
             </div>
             <table id='users-table'>
                 <thead>
@@ -1310,7 +1299,17 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
 
                 </tbody>
             </table>
-
         </div>
     </form>
 </dialog>
+
+    <script src="./assets/js/dashboard.js"></script>
+    <script src="./assets/js/logout.js"></script>
+</body>
+
+</html>
+
+<dialog style='color:white; background-color: #454545;' id="loading-dialog">
+    <div>Retrieving Data ...</div>
+</dialog>
+
