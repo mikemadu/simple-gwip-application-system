@@ -4,7 +4,7 @@ const btnLogin = document.getElementById("btnLogin");
 // Check if the login button exists before attaching the event listener
 if (btnLogin) {
   // Add a click event listener to the login button
-  btnLogin.addEventListener("submit", async function (e) {
+  btnLogin.addEventListener("click", async function (e) {
     e.preventDefault(); // stop normal form submission
     // Get the values entered in the username and password fields
     // trim() removes extra spaces before and after the text
@@ -13,7 +13,7 @@ if (btnLogin) {
 
     // Validate input: make sure both username and password are provided
     if (!username || !password) {
-      alert("Please enter username and password");
+      alert("Please enter username and password"); 
       return; // Stop execution if fields are empty
     }
 
