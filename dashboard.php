@@ -1255,6 +1255,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
 
         input {
             height: 25px;
+            width: 200px;
             border-radius: 5px;
             border: 1px solid #4488e2;
             font-size: 13px;
@@ -1304,8 +1305,8 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
                             <th>Role</th>
                             <th>Last Login</th>
                             <th>Logins</th>
-                            <th>Plain Password</th>
-                            <th>Delete</th>
+                            <th>Plain_Password</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id='users-table-body'>
