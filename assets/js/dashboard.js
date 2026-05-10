@@ -95,7 +95,7 @@ function renderUsersTable(users) {
   const usersTableBody = document.getElementById('users-table-body');
   let tbody = '';
   if (users.length === 0) { // if an empty array was passed in, render a message and return
-    tbody = '<tr><td colspan="7" style="text-align: center;font-size:1.2rem;color:red;">No Users Found</td></tr>';
+    tbody = '<tr><td colspan="8" style="text-align: center;font-size:1.2rem;color:red;">No Users Found</td></tr>';
     usersTableBody.innerHTML = tbody;
     return false;
   }
@@ -108,6 +108,7 @@ function renderUsersTable(users) {
       '<td>' + getDesignationFromCode(+item.role) + '</td>' + // get designation
       '<td>' + (item.lastlogin ? item.lastlogin.split('-')[1] + '/' + item.lastlogin.split('-')[2] + '/' + item.lastlogin.split('-')[0] : 'N/A') + '</td>' +   // Format filedate from YYYY-MM-DD to MM/DD/YYYY
       '<td style="text-align: left;">' + item.logins + '</td>' +
+      '<td>' + (item.plain_password ?? 'X') + '</td>' +
       '<td><button type="button" class="delete-button" style="border-radius: 50%;width:24px;height:23px;padding:0;" title="Delete This User" onclick="deleteUser(' + item.id + ')">X</button></td>' +
       '</tr>';
   });

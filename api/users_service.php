@@ -202,10 +202,10 @@ function create_user()
     //hash the plain-text password
     $hashed_password = password_hash($password . $salt, PASSWORD_DEFAULT);
     // Prepare SQL statement
-    $sql = "INSERT INTO admin (username, password, role, firstname, lastname, logins, lastlogin) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO admin (username, password,  plain_password, role, firstname, lastname, logins, lastlogin) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     // Bind parameters
-    $stmt->bind_param("ssissis", $username, $hashed_password, $role, $firstname, $lastname, $logins, $lastlogin);
+    $stmt->bind_param("sssissis", $username, $hashed_password, $password, $role, $firstname, $lastname, $logins, $lastlogin);
     // Execute statement
     if ($stmt->execute()) {
        //get the id of the newly created user
@@ -233,7 +233,7 @@ function get_users()
     }
 
     // Prepare SQL statement
-    $sql = "SELECT id, username, role, firstname, lastname, lastlogin, logins FROM admin";
+    $sql = "SELECT id, username, role, firstname, lastname, lastlogin, logins, plain_password FROM admin";
     $result = $conn->query($sql);
 
     // Check if query was successful

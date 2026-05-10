@@ -1304,7 +1304,8 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
                             <th>Role</th>
                             <th>Last Login</th>
                             <th>Logins</th>
-                            <th></th>
+                            <th>Plain Password</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody id='users-table-body'>
