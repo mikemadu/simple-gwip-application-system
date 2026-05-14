@@ -1,1 +1,73 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #749ad3;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin:0;
+}
+
+
+
+
+//ANIMATIONS======================
+@keyframes scaleInOut {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.scaleIn {
+    animation: scaleInOut .3s ease-in-out;
+}
+
+.scaleOut {
+    animation: scaleInOut .2s ease-in-out reverse;
+}
+
+//===============================
+@keyframes fadeInOut {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation: fadeInOut .5s ease-in-out;
+}
+
+.fadeOut {
+    animation: fadeInOut .2s ease-in-out reverse;
+}
+
+//===============================
+ @keyframes slideHorizontalLeft {
+     from {
+         opacity: 0;
+         transform: translateX(-100%);
+     }
+
+     to {
+         opacity: 1;
+         transform: translateX(0);
+     }
+ }
+
+ .slideInFromLeft {
+     animation: slideHorizontalLeft .3s ease-in;
+ }
+
+ .slideOutToLeft {
+     animation: slideHorizontalLeft .2s ease-in reverse;
+ }
+
+ //============ END OF ANIMATIONS ===================
