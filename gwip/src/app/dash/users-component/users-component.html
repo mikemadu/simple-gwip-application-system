@@ -1,17 +1,19 @@
 <!--USER MANAGEMENT     =============================================-->
-<div style='background-color: #ffffff;border-radius: 10px; max-height: calc(100vh - 200px);' id='users-dialog'>
-   
-    <form id='user-form' method="POST">
+<div style='background-color: #ffffff;width:45%;border-radius: 10px; max-height: calc(100vh - 200px);' id='users-dialog'
+    animate.enter='scaleIn' animate.leave='scaleOut'>
+
+    <form #userFrm = 'ngForm' (ngSubmit)='createUser(userFrm.value)'>
         <div>
             <div style='display:grid; grid-template-columns: 1fr 1fr 1fr;gap:5px;'>
                 <h3 style='grid-column:span 3;color: #0c4b17;'>Manage Users</h3>
-                <div><label>Username</label><span style='color:red;'>*</span><br><input type='text' name='username' />
+                <div><label>Username</label><span style='color:red;'>*</span><br>
+                <input type='text' name='username' required [ngModel] ='userFrm.value.username' />
                 </div>
                 <div style='grid-column:span 2;'></div>
-                <div><label>First Name</label><br><input type='text' name='firstname' /></div>
-                <div><label>Last Name</label><br><input type='text' name='lastname' /></div>
+                <div><label>First Name</label><br><input type='text' name='firstname' [ngModel] ='userFrm.value.firstname' /></div>
+                <div><label>Last Name</label><br><input type='text' name='lastname' [ngModel] ='userFrm.value.lastname' /></div>
                 <div><label>Role</label><span style='color:red;'>*</span><br>
-                    <select name='role' required>
+                    <select name='role' required [ngModel] ='userFrm.value.role'>
                         <option value=''>-- select --</option>
                         <option value='1'>Admin</option>
                         <option value='2'>Manager</option>
@@ -21,12 +23,12 @@
                 <div>
                     <label>Password</label>
                     <span style='color:red;'>*</span><br>
-                    <input type='text' name='password' required />
+                    <input type='text' name='password' required [ngModel] ='userFrm.value.password' />
                 </div>
                 <div></div>
                 <div style='text-align:right;padding-top:20px;'>
-                    <button type='button' class='user-button' onclick='createUser()'>Add User</button>
-                    <button type='button' class='user-button-close' onclick='closeUserdialog()'>Close</button>
+                    <button type='submit' class='user-button' [disabled]='userFrm.invalid' >Add User</button>
+                    <button type='button' class='user-button-close' (click)='closeUsers()'>Close</button>
                 </div>
                 <hr style='grid-column:span 3; color:black'>
             </div>
@@ -44,7 +46,22 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody >
+                    <tbody>
+                        @for (user of usersList(); track $index) {
+
+
+                        <tr>
+                            <td>{{$index + 1}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.firstname}} {{user.lastname | uppercase}}</td>
+                            <td>{{getDesignationFromCode(+user.role)}}</td>
+                            <td>{{user.lastlogin }} </td>
+                            <td>{{user.logins}}</td>
+                            <td>{{user.plain_password}}</td>
+                            <td><button type='button' class='delete-button' style='border-radius: 50%;width:24px;height:23px;padding:0;'
+                                    title='Delete This User' (click)='deleteUser(user.id)'>X</button></td>
+                        </tr>
+                        }
 
                     </tbody>
                 </table>

@@ -3,7 +3,7 @@
 <input type='text' id='searchName' onkeyup='searchByName(event)' placeholder='Search by Name' />&nbsp;&nbsp;
 <input type='text' id='filterJob' onkeyup='searchByJobCategory(event)' placeholder='Filter by Job Category' />
 
-<table class='apply-table'>
+<table class='apply-table' animate.enter='scaleIn'>
     <thead>
         <tr>
             <th>#</th>
@@ -16,16 +16,31 @@
         </tr>
     </thead>
     <tbody>
-        @for(app of applications; track $index; let i = $index){
+        @for(item of applications(); track $index; let i = $index){
         <tr>
-            <td>{{i+1}}</td>
-            <td></td>
-            <td>{{app.date_applied | date:'MM/dd/yyyy'}}</td>
-            <td>{{app.name}}</td>
-            <td>{{app.age}}</td>
-            <td>{{app.job_category}}</td>
-            <td></td>
+            <td>{{i + 1}}</td>
+            <td><img src='{{photoURL}}{{item.photo}}' alt='' style="height: 50px;" /></td>
+            <td>
+                @if(item.filedate !== null){
+                {{item.filedate | date:'MM/dd/yyyy'}}
+                }
+                @else{
+                N/A
+                }
+            </td>
+            <td>{{item.lastName | uppercase}}, {{item.firstName | titlecase}}</td>
+            <td>{{sharedService.computeAgeFromDate(item.birthdate)}}</td>
+            <td>{{item.applyFor}}</td>
+            <td>
+                @if(permissionLevel === 1){
+                <button class='delete-button' title='Delete Application' (click)='deleteApplication(item.id)'>--
+                    delete
+                    --</button>
+                }
+
+            </td>
         </tr>
         }
     </tbody>
 </table>
+{{applications | json}}

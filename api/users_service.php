@@ -24,24 +24,24 @@ if (isset($_SERVER['HTTP_APICOMMAND'])) {
     }
     // Get all users
     if ($api == 'get-users') {
-        if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
+       // if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
             // Return a JSON response indicating access is denied
-            exit(json_encode([
-                "success" => false,
-                "message" => "Unauthorized access"
-            ]));
-        }
+        //    exit(json_encode([
+       //         "success" => false,
+      //          "message" => "Unauthorized access"
+       //     ]));
+        //}
         // Call the get_users function
         get_users();
     }
     if ($api == 'create-user') {
-        if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
-            // Return a JSON response indicating access is denied
-            exit(json_encode([
-                "success" => false,
-                "message" => "Unauthorized access"
-            ]));
-        }
+        // if (!isset($_SESSION['admin']) && !isset($_SESSION['logged_in_user'])) {
+        //     // Return a JSON response indicating access is denied
+        //     exit(json_encode([
+        //         "success" => false,
+        //         "message" => "Unauthorized access"
+        //     ]));
+        // }
         create_user(); //create users();
     }
     //Delete a user
