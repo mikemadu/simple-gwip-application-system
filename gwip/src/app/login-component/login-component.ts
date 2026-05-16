@@ -18,10 +18,7 @@ export class LoginComponent {
 
   async doLogin(frm: any) {
     this.errorMessage.set(''); // Clear any previous error messages
-    
-    let formData = new FormData();
-    formData = frm;
-    //checks
+     //checks
     if (frm && frm.username.length === 0) {
       this.errorMessage.set('Please enter a username');
       return;
@@ -30,6 +27,9 @@ export class LoginComponent {
       this.errorMessage.set('Please enter a password');
       return;
     }
+    let formData = new FormData();
+    formData = frm;
+   
     const data = await this.sharedService.callAPI('users_service.php', 'login', formData);
     if(data.success){
       localStorage.setItem('loggedInUser', JSON.stringify(data.result)); // Save the logged-in user information in localStorage as a stringified JSON object (data.result);

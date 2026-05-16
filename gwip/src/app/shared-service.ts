@@ -21,9 +21,11 @@ export class SharedService {
    */
   async callAPI(url: string, apiCommand: string, formData: any) {  
    try {
-      let headers = new HttpHeaders();
-    headers = headers.set('Api', apiCommand);
-     const httpOptions = { headers: headers, 'Content-Type':'application/json' };
+     let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded')
+       .set('ApiCommand', apiCommand);
+     const httpOptions = { headers: headers };
+     
     
     const data = await firstValueFrom(this.http.post(this.baseUrl + url, formData, httpOptions)) as IApiData;
     return data;

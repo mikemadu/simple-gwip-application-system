@@ -1,0 +1,56 @@
+<!--USER MANAGEMENT     =============================================-->
+<div style='background-color: #ffffff;border-radius: 10px; max-height: calc(100vh - 200px);' id='users-dialog'>
+   
+    <form id='user-form' method="POST">
+        <div>
+            <div style='display:grid; grid-template-columns: 1fr 1fr 1fr;gap:5px;'>
+                <h3 style='grid-column:span 3;color: #0c4b17;'>Manage Users</h3>
+                <div><label>Username</label><span style='color:red;'>*</span><br><input type='text' name='username' />
+                </div>
+                <div style='grid-column:span 2;'></div>
+                <div><label>First Name</label><br><input type='text' name='firstname' /></div>
+                <div><label>Last Name</label><br><input type='text' name='lastname' /></div>
+                <div><label>Role</label><span style='color:red;'>*</span><br>
+                    <select name='role' required>
+                        <option value=''>-- select --</option>
+                        <option value='1'>Admin</option>
+                        <option value='2'>Manager</option>
+                        <option value='3'>Staff</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Password</label>
+                    <span style='color:red;'>*</span><br>
+                    <input type='text' name='password' required />
+                </div>
+                <div></div>
+                <div style='text-align:right;padding-top:20px;'>
+                    <button type='button' class='user-button' onclick='createUser()'>Add User</button>
+                    <button type='button' class='user-button-close' onclick='closeUserdialog()'>Close</button>
+                </div>
+                <hr style='grid-column:span 3; color:black'>
+            </div>
+            <div style='height: calc(100vh - 405px); overflow-y: auto;'>
+                <table id='users-table'>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Last Login</th>
+                            <th>Logins</th>
+                            <th>Plain_Password</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody >
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </form>
+</div>

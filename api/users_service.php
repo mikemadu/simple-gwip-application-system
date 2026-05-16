@@ -5,8 +5,8 @@
 session_start();
 
 
-if (isset($_SERVER['HTTP_API_COMMAND'])) {
-    $api = $_SERVER['HTTP_API_COMMAND']; //get the API command
+if (isset($_SERVER['HTTP_APICOMMAND'])) {
+    $api = $_SERVER['HTTP_APICOMMAND']; //get the API command
 
     // Check if the API command sent from the frontend is "login"
     if ($api == 'login') {
