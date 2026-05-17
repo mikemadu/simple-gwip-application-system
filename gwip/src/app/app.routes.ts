@@ -22,7 +22,7 @@ export const routes: Routes = [
         loadComponent: () => import('./application-component/application-component').then(m => m.ApplicationComponent)
     },
     {
-        path: 'dashboard', component: DashboardComponent,// canActivate: [Auth], //url guard to protect the dashboard route
+        path: 'dashboard', component: DashboardComponent, canActivate: [Auth], //url guard to protect the dashboard route
         children: [
                 // default route for the dashboard
             { path: '', redirectTo: 'applicationlist', pathMatch: 'full' }, //URL: "dashboard/" will redirect to dashboard/applicationlist

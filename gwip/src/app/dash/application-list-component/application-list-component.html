@@ -3,7 +3,7 @@
 <input type='text' id='searchName' onkeyup='searchByName(event)' placeholder='Search by Name' />&nbsp;&nbsp;
 <input type='text' id='filterJob' onkeyup='searchByJobCategory(event)' placeholder='Filter by Job Category' />
 
-<table class='apply-table' animate.enter='scaleIn'>
+<table class='display-table' animate.enter='scaleIn'>
     <thead>
         <tr>
             <th>#</th>
@@ -32,7 +32,7 @@
             <td>{{sharedService.computeAgeFromDate(item.birthdate)}}</td>
             <td>{{item.applyFor}}</td>
             <td>
-                @if(permissionLevel === 1){
+                @if(isAdmin){
                 <button class='delete-button' title='Delete Application' (click)='deleteApplication(item.id)'>--
                     delete
                     --</button>
@@ -43,4 +43,3 @@
         }
     </tbody>
 </table>
-{{applications | json}}

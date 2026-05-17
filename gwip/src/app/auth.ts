@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
     providedIn: 'root'
 })
 export class Auth {
-   router = inject(Router);
+ //  router = inject(Router);
     canActivate() {        
         //decode the jwt token in localStorage
         if (localStorage.getItem('loggedInUser') === null) {
@@ -13,10 +13,10 @@ export class Auth {
         }
         const loggedInUser:any = localStorage.getItem('loggedInUser');
         if (loggedInUser) {
-            if (+loggedInUser['role'] === 1 ) {
+            if (+loggedInUser['role'] === 1 ) {  //only admin can access the dashboard and users page
                 return true;
             } else {
-                this.router.navigate(['home']);
+              // this.router.navigate(['home']);
                 return false;
             }
         }

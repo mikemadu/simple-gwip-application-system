@@ -22,14 +22,19 @@ export class UsersComponent {
   ngOnInit() {
     // This is where you can initialize any data or perform any setup when the component is loaded
     this.getusersList(); // Load the list of users when the component is initialized
-
   }
+
+  afterViewInit() {
+    // const frm: any = document.getElementById('userFrm');
+    // if (frm) {
+    //   frm.value.role = ''; // clear the Role dropdowna
+    // }
+  } 
 
   async getusersList() {
     const data = await this.sharedService.callAPI('users_service.php', 'get-users', null);
     if (data.success) {
       this.usersList.set(data.result); // Set the users array = data.result;
-    //  console.log('Loaded users:', this.usersList());
     } else {
       this.errorMessage = data.message;
       console.error('Failed to load users:', data.message);
@@ -39,15 +44,15 @@ export class UsersComponent {
 
 
   async createUser(userFrm: any) {
-    let formData = new FormData();
-    formData = userFrm; //We can directly use the form data as FormData for our API call, no need to manually append each field.
+   // console.log('Creating user with data:', userFrm);
+   // let formData = new FormData();
+   // formData = userFrm; //We can directly use the form data as FormData for our API call, no need to manually append each field.
     try {
       //We use await here because we want to wait for the response before proceeding. 
       // This allows us to handle the response in a more linear and readable way.
-      const response = await this.sharedService.callAPI('users_service.php', 'create-user', formData);
+      const response = await this.sharedService.callAPI('users_service.php', 'create-user', userFrm);
       if (response.success) {
-       await this.getusersList();   
-        
+       await this.getusersList();           
       }
       return;
     } catch (error) {
@@ -61,13 +66,13 @@ export class UsersComponent {
     if (confirm('Are you sure you want to delete this user?') === false) {
       return false; //user cancelled
     }
-    // prepare to make the request to the server
-    const formData = new FormData();
-    formData.append('id', userId.toString());//convert to string for http call
+    // prepare to make the request to the server. Put the ID into an object
+   const obj = { id: userId }; //We can directly use an object here, the callAPI method will convert it to FormData internally.
+   
     try {
       // make the request. Notice we are not using await here because we want to handle the response in the .then() callback.
       //This is just an alternative way of doing things, you could also use await if you prefer that style.
-      this.sharedService.callAPI('users_service.php', 'delete-user', formData).then((response) => {
+      this.sharedService.callAPI('users_service.php', 'delete-user', obj).then((response) => {
         if (response.success) {
           this.getusersList(); //reload the list of users after deletion
         } else {
@@ -80,27 +85,11 @@ export class UsersComponent {
     }
     return;
   }
+
   closeUsers() {
   //To close this users page we simply navigate back to the Parent, which is the dashboard.
   this.router.navigate(['/dashboard']); //The default page here is the ApplicationsList component
   }
-
-/**
- * Converts the permissions code to a readable string
- * @param {*} code 
- * @returns 
- */
- getDesignationFromCode(code: number): string {
-  if (code === 1) {
-    return 'ADMIN';
-  } else if (code === 2) {
-    return 'MANAGER';
-  } else if (code === 3) {
-    return 'STAFF';
-  } else {
-    return '-';
-  }
-}
 
 
 

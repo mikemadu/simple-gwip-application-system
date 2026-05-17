@@ -27,15 +27,16 @@ export class LoginComponent {
       this.errorMessage.set('Please enter a password');
       return;
     }
-    let formData = new FormData();
-    formData = frm;
+   // let formData = new FormData();
+    //formData = frm;
    
-    const data = await this.sharedService.callAPI('users_service.php', 'login', formData);
+    const data = await this.sharedService.callAPI('users_service.php', 'login', frm);
     if(data.success){
       localStorage.setItem('loggedInUser', JSON.stringify(data.result)); // Save the logged-in user information in localStorage as a stringified JSON object (data.result);
       // Redirect the user to the dashboard page
       this.router.navigate(['/dashboard']);
     } else {
+      this.router.navigate(['/login']);
      this.errorMessage.set(data.message);
     }
     
